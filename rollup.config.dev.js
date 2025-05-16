@@ -7,9 +7,9 @@ import json from '@rollup/plugin-json';
 import image from '@rollup/plugin-image';
 
 export default {
-  input: ['src/hacs-boilerplate-card.ts'],
+  input: ['src/index.ts'],
   output: {
-    dir: './dist',
+    dir: '../www',
     format: 'es',
   },
   plugins: [
@@ -23,7 +23,7 @@ export default {
     }),
     terser(),
     serve({
-      contentBase: './dist',
+      contentBase: '../www',
       host: '0.0.0.0',
       port: 5001,
       headers: {

@@ -9,7 +9,7 @@ import gzipPlugin from 'rollup-plugin-gzip';
 
 export default [
   {
-    input: 'src/hacs-boilerplate-card.ts',
+    input: 'src/index.ts',
     output: {
       dir: 'dist',
       format: 'es',
