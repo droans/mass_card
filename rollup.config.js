@@ -11,7 +11,7 @@ export default [
   {
     input: 'src/index.ts',
     output: {
-      dir: 'dist',
+      file: './dist/hacs-boilerplate-card.js',
       format: 'es',
     },
     plugins: [

@@ -39,7 +39,7 @@ You're set, now you can use github directly from HA's vscode.
 
 I recommend setting up Node.js with nvm, so that it's easier to switch to new versions.
 
-Open a terminal in vscode, and check the latest command from [https://github.com/nvm-sh/nvm]:
+Open a terminal in vscode, and check the latest command from [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm):
 
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
@@ -92,7 +92,13 @@ Run `yarn` to install dependencies, then `yarn rollup` to create your first test
 
 During development, use DEV = true in index.ts, and run `yarn start` - this will build the development version of your card straight to the config's www folder (../www from this folder) and run rollup in watch mode, so any changes will issue an immediate rebuild.
 
-Happy coding! 😊 Check out the (official documentation)[https://developers.home-assistant.io/docs/frontend/custom-ui/custom-card/] as well!
+In your lovelace dashboard, switch to edit mode, select Manage resources from the menu, and add `/local/[your-card-name].js` as a new resource (javascript module). Reload the browser.
+
+While developing, open the browser's developer console, network tab, and check "disable cache". Otherwise, even if the .js file is rebuilt, the browser will not load the new version even after a refresh.
+
+Whenever you made some changes, rollup will build the code automatically, and after a refresh the new code will run in your lovelace dashboard as well.
+
+Happy coding! 😊 Check out the [official documentation](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-card/) as well!
 
 ## Release
 
@@ -103,6 +109,6 @@ For a new release, do the below:
 - Increase the version in package.json (increase 1.x.0 for minor updates, and x.0.0 for major updates)
 - Add your changes to CHANGELOG.md
 - Push your changes to github
-- Create a production build (with DEV = false in index.ts) to the dist folder
+- Create a production build with `yarn build` (with DEV = false in index.ts) to the dist folder
 - Create a new release in github with a new tag as well, for example tag 1.1.0, title "Version 1.1.0", and release description should be the same what you added to the changelog
 - Attach your built .js file to the release, then submit the release

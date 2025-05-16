@@ -9,7 +9,7 @@ import image from '@rollup/plugin-image';
 export default {
   input: ['src/index.ts'],
   output: {
-    dir: '../www',
+    file: '../www/hacs-boilerplate-card.js',
     format: 'es',
   },
   plugins: [
