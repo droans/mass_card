@@ -15,6 +15,8 @@ Creating a complex card might require a lot of things - getting familiar with ho
 
 Feedback is welcome.
 
+Check out my other work at [https://github.com/tolnai/home_assistant_cookbook](https://github.com/tolnai/home_assistant_cookbook).
+
 ## Environment Setup - Common
 
 ### VSCode
@@ -112,3 +114,5 @@ For a new release, do the below:
 - Create a production build with `yarn build` (with DEV = false in index.ts) to the dist folder
 - Create a new release in github with a new tag as well, for example tag 1.1.0, title "Version 1.1.0", and release description should be the same what you added to the changelog
 - Attach your built .js file to the release, then submit the release
+
+<a href="https://www.buymeacoffee.com/tolnai" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
