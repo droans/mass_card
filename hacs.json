@@ -1,5 +1,5 @@
 {
-  "name": "HACS Boilerplate Card",
+  "name": "Music Assistant Card",
   "render_readme": true,
-  "filename": "hacs-boilerplate-card.js"
+  "filename": "mass-card.js"
 }

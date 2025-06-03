@@ -1989,37 +1989,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hacs_custom_card_boilerplate@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "hacs_custom_card_boilerplate@workspace:."
-  dependencies:
-    "@babel/core": "npm:^7.15.0"
-    "@babel/plugin-proposal-class-properties": "npm:^7.14.5"
-    "@babel/plugin-proposal-decorators": "npm:^7.14.5"
-    "@eslint/js": "npm:9.21.0"
-    "@rollup/plugin-babel": "npm:^6.0.0"
-    "@rollup/plugin-image": "npm:^3.0.0"
-    "@rollup/plugin-json": "npm:^6.0.0"
-    "@rollup/plugin-node-resolve": "npm:^16.0.0"
-    "@rollup/plugin-terser": "npm:^0.4.0"
-    "@typescript-eslint/eslint-plugin": "npm:^7.0.0"
-    "@typescript-eslint/parser": "npm:^7.0.0"
-    custom-card-helpers: "npm:1.9.0"
-    eslint: "npm:9.21.0"
-    eslint-config-prettier: "npm:10.0.2"
-    eslint-plugin-jest: "npm:28.11.0"
-    home-assistant-js-websocket: "npm:6.1.1"
-    lit: "npm:2.8.0"
-    rollup: "npm:^4.0.0"
-    rollup-plugin-commonjs: "npm:^10.1.0"
-    rollup-plugin-gzip: "npm:^4.0.0"
-    rollup-plugin-serve: "npm:^3.0.0"
-    rollup-plugin-typescript2: "npm:^0.36.0"
-    typescript: "npm:5.8.2"
-    typescript-eslint: "npm:8.26.0"
-  languageName: unknown
-  linkType: soft
-
 "has-flag@npm:^4.0.0":
   version: 4.0.0
   resolution: "has-flag@npm:4.0.0"
@@ -2411,6 +2380,37 @@ __metadata:
   checksum: 10c0/c40efb5e5296e7feb8e37155bde8eb70bc57d731b1f7d90e35a092fde403d7697c56fb49334d92d330d6f1ca29a98142036d6480a12681133a0a1453164cb2f0
   languageName: node
   linkType: hard
+
+"mass_card@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "mass_card@workspace:."
+  dependencies:
+    "@babel/core": "npm:^7.15.0"
+    "@babel/plugin-proposal-class-properties": "npm:^7.14.5"
+    "@babel/plugin-proposal-decorators": "npm:^7.14.5"
+    "@eslint/js": "npm:9.21.0"
+    "@rollup/plugin-babel": "npm:^6.0.0"
+    "@rollup/plugin-image": "npm:^3.0.0"
+    "@rollup/plugin-json": "npm:^6.0.0"
+    "@rollup/plugin-node-resolve": "npm:^16.0.0"
+    "@rollup/plugin-terser": "npm:^0.4.0"
+    "@typescript-eslint/eslint-plugin": "npm:^7.0.0"
+    "@typescript-eslint/parser": "npm:^7.0.0"
+    custom-card-helpers: "npm:1.9.0"
+    eslint: "npm:9.21.0"
+    eslint-config-prettier: "npm:10.0.2"
+    eslint-plugin-jest: "npm:28.11.0"
+    home-assistant-js-websocket: "npm:6.1.1"
+    lit: "npm:2.8.0"
+    rollup: "npm:^4.0.0"
+    rollup-plugin-commonjs: "npm:^10.1.0"
+    rollup-plugin-gzip: "npm:^4.0.0"
+    rollup-plugin-serve: "npm:^3.0.0"
+    rollup-plugin-typescript2: "npm:^0.36.0"
+    typescript: "npm:5.8.2"
+    typescript-eslint: "npm:8.26.0"
+  languageName: unknown
+  linkType: soft
 
 "merge2@npm:^1.3.0, merge2@npm:^1.4.1":
   version: 1.4.1

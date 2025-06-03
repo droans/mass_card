@@ -1,17 +1,18 @@
 {
-  "name": "hacs_custom_card_boilerplate",
-  "description": "Custom Card Boilerplate for Home Assistant - Sample HACS Card",
-  "repository": "https://github.com/tolnai/hacs_custom_card_boilerplate",
-  "author": "Gábor Tolnai",
-  "version": "1.0.0",
-  "module": "hacs-boilerplate-card.js",
+  "name": "mass_card",
+  "description": "Custom Music Assistant Card for Home Assistant",
+  "repository": "https://github.com/droans/mass_card",
+  "author": "Michael Carroll",
+  "version": "0.1.0",
+  "module": "mass-card.js",
   "keywords": [
     "home-assistant",
     "homeassistant",
     "hass",
     "hacs",
     "lovelace",
-    "custom-cards"
+    "custom-cards",
+    "music-assistant"
   ],
   "license": "MIT",
   "type": "module",

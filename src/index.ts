@@ -19,10 +19,10 @@ import { version } from '../package.json';
 const DEV = false;
 
 // Change these values to your card's name, description and URL
-const cardId = 'hacs-boilerplate-card';
-const cardName = 'HACS Boilerplate Card';
-const cardDescription = 'Custom Card Boilerplate for Home Assistant - Sample HACS Card';
-const cardUrl = 'https://github.com/tolnai/hacs_custom_card_boilerplate';
+const cardId = 'mass-card';
+const cardName = 'Music Assistant Card';
+const cardDescription = 'Custom Music Assistant Card for Home Assistant';
+const cardUrl = 'https://github.com/droans/mass_card';
 
 export type MyEntityConfig = {
   entity: string;
