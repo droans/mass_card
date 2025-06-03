@@ -27,4 +27,29 @@ export default css`
     line-height: var(--fontSize);
     cursor: pointer;
   }
+  .header {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+  .list {
+    height: 400px;
+    overflow-y: scroll;
+    --mdc-icon-button-size: 1.5rem;
+    --mdc-icon-size: 1rem;
+  }
+  *[selected] {
+    color: var(--acent-color)
+  }
+  *[hide] {
+  display: none;
+  }
 `;

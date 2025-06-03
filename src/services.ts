@@ -2,8 +2,8 @@ import { HomeAssistant } from "custom-card-helpers";
 import { Config, QueueItem } from "./types";
 
 export default class HassService {
-  private readonly hass: HomeAssistant;
-  private readonly config: Config
+  private hass: HomeAssistant;
+  private config: Config
 
   constructor(hass: HomeAssistant, config: Config) {
     this.hass = hass;
@@ -11,19 +11,23 @@ export default class HassService {
   }
 
   async getQueue(): Promise<QueueItem[]> {
-      const ret = await this.hass.callWS<any>({
+    try {
+      const ret1 = await this.hass.callWS<any>({
         type: 'call_service',
         domain: 'script',
         service: 'get_player_queues',
         target: {
-          entity_id: this.config.entity
+          entity_id: this.config.entity,
         },
         return_response: true,
       });
-      const result = ret.response[this.config.entity]
-      return result;
+      const queueItems = ret1.response[this.config.entity];
+      return queueItems;
+    } catch (e) {
+      console.error('Error getting queue', e);
+      return [];
+    }
   }
-
   async playQueueItem(queue_item_id: string) {
     try {
       await this.hass.callService(

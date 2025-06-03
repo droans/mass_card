@@ -6,11 +6,16 @@ class MediaRow extends LitElement {
   @property({ type: Boolean }) selected = false;
   
   render() {
+    let title = `${this.item.media_title} - ${this.item.media_artist}`;
+    let title_trimmed = title.substring(0,35)
+    if (title !== title_trimmed) {
+      title_trimmed = `${title_trimmed}...`;
+    }
     return html`
       <mwc-list-item hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row">
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
-          <div class="title">${this.item.media_title} - ${this.item.media_artist}</div>
+          <div class="title">${title_trimmed}</div>
         </div>
         <slot slot="meta"></slot>
       </mwc-list-item>
@@ -40,6 +45,7 @@ class MediaRow extends LitElement {
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
+          padding-left: 12px;
         }
 
         .title {
