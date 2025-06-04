@@ -22,7 +22,11 @@ export default class HassService {
         return_response: true,
       });
       const queueItems = ret1.response[this.config.entity];
-      return queueItems;
+      const result = queueItems.map( (element) => {
+        element.playing = false;
+        return element;
+      });
+      return result;
     } catch (e) {
       console.error('Error getting queue', e);
       return [];

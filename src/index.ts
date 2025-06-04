@@ -49,12 +49,16 @@ export class MusicAssistantCard extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
   @property({ attribute: false} ) public services!: HassService;
   @state() private code: any;
-  @state() private queue: QueueItem[];
+  @state() private queue: QueueItem[] = [];
   @state() private newQueue: QueueItem[];
   @state() private config!: Config;
   @state() private error?: TemplateResult;
   @state() private lastUpdate = 0;
-  @state() private UDPATE_INTERVAL = 5000 // 5 seconds
+  @state() private UPDATE_INTERVAL = 5000; // 5 seconds
+  @state() private FIRST_UPDATE = false;
+  @state() private ACTIVE_ID = '';
+  @state() private NEW_ID = '';
+  @state() private UPDATE_DELAY = 2500;
   private counter = 0;
 
   constructor() {
@@ -92,23 +96,53 @@ export class MusicAssistantCard extends LitElement {
       this.services = new HassService(this.hass, this.config)
     }
     try {
+      let active_track = this.hass.states[this.config.entity].attributes.media_content_id;
       this.services.getQueue().then(
         (queue) => {
-          this.newQueue = queue;
+          this.newQueue = this.updateActiveTrack(queue);
         }
       );
     } catch (e) {
       this.newQueue = []
     }
   }
+  private getCardActiveTrack() {
+    let e = this.queue.find( (element) => {
+      element.playing
+    });
+    return e?.media_content_id
+  };
+  private getHassActiveTrack() {
+    let active_track = this.hass.states[this.config.entity].attributes.media_content_id;
+    return active_track
+  }
+  private updateActiveTrack(queue) {
+    let content_id = this.NEW_ID;
+    let result = queue.map( (element) => {
+      if (element.media_content_id == content_id) {
+        element.playing = true;
+      }
+      return element;
+    });
+    return result
+  }
   private shouldUpdateQueue() {
-    this.getQueue();
-    if (this.newQueue == this.queue || this.newQueue.length == 0) {
-      return false;
-    } else {
-      this.queue = this.newQueue;
-      return true;
+    let t = new Date().valueOf()
+    let card_active = this.getCardActiveTrack()
+    let hass_active = this.getHassActiveTrack()
+    if ((t - this.lastUpdate) > this.UPDATE_INTERVAL || !this.FIRST_UPDATE || !this.queue.length || card_active != hass_active) {
+      this.FIRST_UPDATE = true;
+      this.lastUpdate = t;
+      this.ACTIVE_ID = this.NEW_ID;
+      this.getQueue();
+      if (this.newQueue == this.queue || this.newQueue.length == 0) {
+        return false;
+      } else {
+        this.queue = this.newQueue;
+        return true;
+      }
     }
+    return false;
   }
   protected shouldUpdate(_changedProperties: PropertyValues): boolean {
     if (_changedProperties.has('hass')) {
@@ -124,8 +158,9 @@ export class MusicAssistantCard extends LitElement {
   public getCardSize() {
     return 3;
   }
-  private onQueueItemSelected = async (queue_item_id: string) => {
-    await this.services.playQueueItem(queue_item_id);
+  private onQueueItemSelected = async (queue_item_id: string, content_id: string) => {
+    this.NEW_ID = content_id
+    await this.services.playQueueItem(queue_item_id);    
   }
   private renderQueue() {
     const result = html`
@@ -139,7 +174,7 @@ export class MusicAssistantCard extends LitElement {
                 (item) => {
                   return html`
                     <mass-media-row
-                      @click=${() => this.onQueueItemSelected(item.queue_item_id)}
+                      @click=${() => this.onQueueItemSelected(item.queue_item_id, item.media_content_id)}
                       .item=${item}
                       .selected=${item.playing}
                     >
@@ -178,3 +213,7 @@ export class MusicAssistantCard extends LitElement {
 }
 
 const actions: string[] = ['navigate', 'url', 'perform-action', 'none'];
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
