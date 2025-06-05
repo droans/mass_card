@@ -147,9 +147,13 @@ export class MusicAssistantCard extends LitElement {
     }
     return false;
   }
+  
   protected shouldUpdate(_changedProperties: PropertyValues): boolean {
     if (_changedProperties.has('hass')) {
       const oldHass = _changedProperties.get('hass') as HomeAssistant;
+      if (!oldHass) {
+        return true;
+      };
       const newHass = this.hass;
       const oldEnt = oldHass.states[this.config.entity];
       const newEnt = newHass.states[this.config.entity];
