@@ -118,6 +118,9 @@ export class MusicAssistantCard extends LitElement {
   }
   private updateActiveTrack(queue) {
     let content_id = this.NEW_ID;
+    if (!content_id.length) {
+      content_id = this.hass.states[this.config.entity].attributes.media_content_id;
+    }
     let result = queue.map( (element) => {
       if (element.media_content_id == content_id) {
         element.playing = true;
@@ -148,6 +151,13 @@ export class MusicAssistantCard extends LitElement {
     if (_changedProperties.has('hass')) {
       const oldHass = _changedProperties.get('hass') as HomeAssistant;
       const newHass = this.hass;
+      const oldEnt = oldHass.states[this.config.entity];
+      const newEnt = newHass.states[this.config.entity];
+      const oldContentId = oldEnt.attributes.media_content_id;
+      const newContentId = newEnt.attributes.media_content_id;
+      if (newContentId !== oldContentId) {
+        this.NEW_ID = newContentId;
+      };
 
       return oldHass?.states[this.config.entity] !== newHass?.states[this.config.entity]
     }
