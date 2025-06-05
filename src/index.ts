@@ -155,6 +155,10 @@ export class MusicAssistantCard extends LitElement {
       const newEnt = newHass.states[this.config.entity];
       const oldContentId = oldEnt.attributes.media_content_id;
       const newContentId = newEnt.attributes.media_content_id;
+      if (['idle'].includes(newEnt.state) || newContentId == oldContentId) {
+        return false
+      };
+
       if (newContentId !== oldContentId) {
         this.NEW_ID = newContentId;
       };
