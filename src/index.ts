@@ -58,8 +58,6 @@ export class MusicAssistantCard extends LitElement {
   @state() private FIRST_UPDATE = false;
   @state() private ACTIVE_ID = '';
   @state() private NEW_ID = '';
-  @state() private UPDATE_DELAY = 2500;
-  private counter = 0;
 
   constructor() {
     super();
