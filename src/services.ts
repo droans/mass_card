@@ -45,4 +45,17 @@ export default class HassService {
       console.error('Error selecting queue item', e)
     }
   }
+  async removeQueueItem(queue_item_id: string) {
+    try {
+      await this.hass.callService(
+        'script', 'mass_remove_queue_item',
+        {
+          player: this.config.entity,
+          queue_item_id: queue_item_id
+        }
+      )
+    } catch (e) {
+      console.error('Error selecting queue item', e)
+    }
+  }
 }
