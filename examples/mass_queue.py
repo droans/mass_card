@@ -11,7 +11,7 @@ class Const:
         GET_ALL_QUEUES = 'player_queues/all'
         GET_PLAYER_QUEUE = 'player_queues/get_active_queue'
         GET_QUEUE = 'player_queues/get'
-        DELETE_QUEUE_ITEM = 'player_queues/delete_item'
+        PLAY_QUEUE_ITEM = 'player_queues/play_index'
         GET_QUEUE_ITEMS = 'player_queues/items'
         REMOVE_QUEUE_ITEM = 'player_queues/delete_item'
         CLEAR_QUEUE = 'player_queues/clear'
