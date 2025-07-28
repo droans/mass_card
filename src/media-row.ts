@@ -22,8 +22,7 @@ class MediaRow extends LitElement {
         </div>
         <div slot="meta">
           <mwc-icon-button
-            icon="delete"
-            @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}
+            @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}<mwc-icon>close</mwc-icon>
           </mwc-icon-button>
           <slot></slot>
         </div>
