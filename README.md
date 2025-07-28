@@ -28,7 +28,7 @@ This card requires you to create three scripts: `script.get_player_queues`, `scr
 2. Download the file `examples/mass_queue.py`. Save it in your Home Assistant `<config>/pyscript/scripts` directory.
 3. Copy the example scripts from `examples/script.yaml` file. 
 
-## Add Card
+### Add Card
 
 The card does not have a visual editor. 
 
