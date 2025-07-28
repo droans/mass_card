@@ -9,7 +9,6 @@ class MediaRow extends LitElement {
   @property({ type: Boolean }) selected = false;
   @property({ attribute: false}) removeService;
   render() {
-    console.log(this.removeService);
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
     let title_trimmed = title.substring(0,35)
     if (title !== title_trimmed) {
