@@ -21,10 +21,16 @@ class MediaRow extends LitElement {
           <div class="title">${title_trimmed}</div>
         </div>
         <div slot="meta">
-          <mwc-icon-button
-            @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}<mwc-icon>close</mwc-icon>
-          </mwc-icon-button>
-          <slot></slot>
+        <ha-icon-button 
+          .path=${mdiClose}
+          class="remove-button"
+          @click=${(e) =>{
+              e.stopPropagation();
+              this.removeService(this.item.queue_item_id, this.item.media_content_id)
+            }
+          }>
+        </ha-icon-button>
+        <slot></slot>
         </div>
       </mwc-list-item>
     `;
@@ -55,7 +61,7 @@ class MediaRow extends LitElement {
           background-position: left;
           padding-left: 12px;
         }
-        .remove {
+        .remove-button {
           width: var(--icon-width);
           height: var(--icon-width);
           align-self: end;
