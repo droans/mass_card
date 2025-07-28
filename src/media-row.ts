@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
 import Icon from '@mdi/react';
-import { mdiClose } from '@mdi/js';
+import { mdiCloseThick } from '@mdi/js';
 import { QueueItem } from './types';
 
 class MediaRow extends LitElement {
@@ -22,7 +22,7 @@ class MediaRow extends LitElement {
         </div>
         <div slot="meta">
         <ha-icon-button 
-          .path=${mdiClose}
+          .path=${mdiCloseThick}
           class="remove-button"
           @click=${(e) =>{
               e.stopPropagation();
@@ -64,6 +64,7 @@ class MediaRow extends LitElement {
         .remove-button {
           width: var(--icon-width);
           height: var(--icon-width);
+          transform: scale(1.5);
           align-self: end;
         }
 
