@@ -23,7 +23,12 @@ class MediaRow extends LitElement {
             <svg slot="icon" viewBox="0 0 48 48"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
           </mwc-filled-tonal-button>
         </div>
-        <slot slot="meta"></slot>
+        <slot slot="meta">
+          <mwc-icon-button
+            icon="delete"
+            @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}
+          </mwc-icon-button>
+        </slot>
       </mwc-list-item>
     `;
   }
