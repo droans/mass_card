@@ -1,10 +1,13 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
+import Icon from '@mdi/react';
+import { mdiCloseThick } from '@mdi/js';
 import { QueueItem } from './types';
+
 class MediaRow extends LitElement {
   @property({ attribute: false }) item!: QueueItem;
   @property({ type: Boolean }) selected = false;
-  
+  @property({ attribute: false}) removeService;
   render() {
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
     let title_trimmed = title.substring(0,35)
@@ -17,7 +20,18 @@ class MediaRow extends LitElement {
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${title_trimmed}</div>
         </div>
-        <slot slot="meta"></slot>
+        <div slot="meta">
+        <ha-icon-button 
+          .path=${mdiCloseThick}
+          class="remove-button"
+          @click=${(e) =>{
+              e.stopPropagation();
+              this.removeService(this.item.queue_item_id, this.item.media_content_id)
+            }
+          }>
+        </ha-icon-button>
+        <slot></slot>
+        </div>
       </mwc-list-item>
     `;
   }
@@ -46,6 +60,12 @@ class MediaRow extends LitElement {
           background-repeat: no-repeat;
           background-position: left;
           padding-left: 12px;
+        }
+        .remove-button {
+          width: var(--icon-width);
+          height: var(--icon-width);
+          transform: scale(1.5);
+          align-self: end;
         }
 
         .title {

@@ -178,6 +178,10 @@ export class MusicAssistantCard extends LitElement {
     this.NEW_ID = content_id
     await this.services.playQueueItem(queue_item_id);    
   }
+  private onQueueItemRemoved = async (queue_item_id: string, content_id: string) => {
+    this.NEW_ID = content_id
+    await this.services.removeQueueItem(queue_item_id);    
+  }
   private renderQueue() {
     const result = html`
       <ha-expansion-panel
@@ -193,6 +197,7 @@ export class MusicAssistantCard extends LitElement {
                       @click=${() => this.onQueueItemSelected(item.queue_item_id, item.media_content_id)}
                       .item=${item}
                       .selected=${item.playing}
+                      .removeService=${this.onQueueItemRemoved}
                     >
                     </mass-media-row>
                   `
