@@ -19,7 +19,7 @@ class MediaRow extends LitElement {
         <div class="row">
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${title_trimmed}</div>
-          <div class="remove" @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}><b>X</b></div>
+          <mwc-icon class="remove" slot="end" @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}>close</div>
         </div>
         <slot slot="meta"></slot>
       </mwc-list-item>
