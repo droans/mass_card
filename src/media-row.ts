@@ -19,16 +19,14 @@ class MediaRow extends LitElement {
         <div class="row">
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${title_trimmed}</div>
-          <mwc-filled-tonal-button slot="end" @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}>
-            <svg slot="icon" viewBox="0 0 48 48"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
-          </mwc-filled-tonal-button>
         </div>
-        <slot slot="meta">
+        <div slot="meta">
           <mwc-icon-button
             icon="delete"
             @click=${() => this.removeService(this.item.queue_item_id, this.item.media_content_id)}
           </mwc-icon-button>
-        </slot>
+          <slot></slot>
+        </div>
       </mwc-list-item>
     `;
   }
