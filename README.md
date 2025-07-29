@@ -18,6 +18,10 @@ Display the queue for any given media player.
 
 In addition to the Music Assistant integration, this card depends on the custom integration `mass_queue` for all the actions. Follow all instructions [in the repository](https://github.com/droans/mass_queue) to install first.
 
+### HACS Installation
+1. Use button above to add to your Home Assistant instance.
+
+### Manual Installation
 1. Download the card.
     - Navigate to the Releases and locate the latest release.
     - Download `mass-card.js`
