@@ -14,7 +14,9 @@ Display the queue for any given media player.
 
 ## Installation
 
-This card is not included with HACS and must be installed manually.
+### Prequisites
+
+In addition to the Music Assistant integration, this card depends on the custom integration `mass_queue` for all the actions. Follow all instructions [in the repository](https://github.com/droans/mass_queue) to install first.
 
 1. Download the card.
     - Navigate to the Releases and locate the latest release.
@@ -27,20 +29,7 @@ This card is not included with HACS and must be installed manually.
     - Press "Add Resource". For the URL, type in "/local/mass-card.js". Select "JavaScript module" and click "Create".
 
 ## Configuration
-
-### Create services
-
-This card requires you to create three scripts: `script.get_player_queues`, `script.mass_play_queue_item`, and `script.mass_remove_queue_item`.  If you know what you are doing, you can manually configure this. Otherwise, use the instructions below to help out.
-
-1. Install the Pyscript integration from HACS.
-2. Download the file `examples/mass_queue.py`. Save it in your Home Assistant `<config>/pyscript/scripts` directory.
-3. Copy the example scripts from `examples/script.yaml` file. 
-
-### Add Card
-
-The card does not have a visual editor. 
-
-Use this configuration to create your card:
+The card does not have a visual editor. Use this configuration to create your card:
 
 ```yaml
 type: custom:mass-card
