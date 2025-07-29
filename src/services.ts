@@ -38,7 +38,7 @@ export default class HassService {
       await this.hass.callService(
         'mass_queue', 'play_queue_item',
         {
-          player: this.config.entity,
+          entity: this.config.entity,
           queue_item_id: queue_item_id
         }
       )
@@ -51,7 +51,7 @@ export default class HassService {
       await this.hass.callService(
         'mass_queue', 'remove_queue_item',
         {
-          player: this.config.entity,
+          entity: this.config.entity,
           queue_item_id: queue_item_id
         }
       )
