@@ -1,8 +1,16 @@
+[![GitHub Release](https://img.shields.io/github/release/droans/mass_card.svg?style=for-the-badge)](https://github.com/droans/mass_card/releases)
+[![License](https://img.shields.io/github/license/droans/mass_card.svg?style=for-the-badge)](LICENSE)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-blue.svg?style=for-the-badge)](https://github.com/hacs/default)
+[![Project Maintenance](https://img.shields.io/badge/maintainer-droans-blue.svg?style=for-the-badge)](https://github.com/droans)
+[![GitHub Activity](https://img.shields.io/github/last-commit/droans/mass_card?style=for-the-badge)](https://github.com/droans/mass_card/commits/main)
+
 # Music Assistant Queue Card
 
 Display the queue for any given media player.
 
 ![Queue Card Example](/static/queue_example.png)
+
+[![My Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=mass_card&owner=droans&category=Plugin)
 
 ## Installation
 
