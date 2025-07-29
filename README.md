@@ -14,8 +14,10 @@ Display the queue for any given media player.
 
 ## Installation
 
-This card is not included with HACS and must be installed manually.
+### HACS Installation
+1. Use button above to add to your Home Assistant instance.
 
+### Manual Installation
 1. Download the card.
     - Navigate to the Releases and locate the latest release.
     - Download `mass-card.js`
