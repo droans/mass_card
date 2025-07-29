@@ -1,6 +1,5 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
-import Icon from '@mdi/react';
 import { mdiCloseThick } from '@mdi/js';
 import { QueueItem } from './types';
 
