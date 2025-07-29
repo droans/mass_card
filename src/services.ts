@@ -16,8 +16,10 @@ export default class HassService {
         type: 'call_service',
         domain: 'mass_queue',
         service: 'get_queue_items',
-        entity: this.config.entity,
-        limit: 100,
+        service_data: {
+          entity: this.config.entity,
+          limit: 100
+        },
         return_response: true
       });
       const queueItems = ret1.response[this.config.entity];
