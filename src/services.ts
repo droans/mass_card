@@ -14,12 +14,11 @@ export default class HassService {
     try {
       const ret1 = await this.hass.callWS<any>({
         type: 'call_service',
-        domain: 'script',
-        service: 'get_player_queues',
-        target: {
-          entity_id: this.config.entity,
-        },
-        return_response: true,
+        domain: 'mass_queue',
+        service: 'get_queue_items',
+        entity: this.config.entity,
+        limit: 100,
+        return_response: true
       });
       const queueItems = ret1.response[this.config.entity];
       const result = queueItems.map( (element) => {
@@ -35,7 +34,7 @@ export default class HassService {
   async playQueueItem(queue_item_id: string) {
     try {
       await this.hass.callService(
-        'script', 'mass_play_queue_item',
+        'mass_queue', 'play_queue_item',
         {
           player: this.config.entity,
           queue_item_id: queue_item_id
@@ -48,7 +47,7 @@ export default class HassService {
   async removeQueueItem(queue_item_id: string) {
     try {
       await this.hass.callService(
-        'script', 'mass_remove_queue_item',
+        'mass_queue', 'remove_queue_item',
         {
           player: this.config.entity,
           queue_item_id: queue_item_id
