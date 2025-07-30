@@ -199,8 +199,7 @@ export class MusicAssistantCard extends LitElement {
     console.log(`Got Expanded: ${this.config.expanded}, using ${expanded}`);
     const result = html`
       <ha-expansion-panel
-        header=${ttl}
-        ${expanded}
+        header=${ttl} ${expanded}
       >
         <div class="list">
           <mwc-list>
