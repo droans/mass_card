@@ -35,9 +35,18 @@ In addition to the Music Assistant integration, this card depends on the custom 
 ## Configuration
 The card does not have a visual editor. Use this configuration to create your card:
 
+## Example 
 ```yaml
 type: custom:mass-card
 entity: media_player.music_assistant_player
 title: Player Queue
 expanded: false
 ```
+
+## Parameters
+| Parameter | Type | Required | Default      | Description                                                                     |
+|-----------|------|----------|--------------|---------------------------------------------------------------------------------|
+| type      | str  | Yes      | n/a          | Use `custom:mass-card`                                                          |
+| entity    | str  | Yes      | n/a          | The Music Assistant `media_player` entity to use                                |
+| title     | str  | No       | Player Queue | Header title for card                                                           |
+| expanded  | bool | No       | false        | Sets card to be expanded by default. User can always manually show/hide content |
