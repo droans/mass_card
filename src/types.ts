@@ -1,5 +1,7 @@
 export type Config = {
   entity: string;
+  title: string;
+  expanded: boolean;
 }
 
 export type QueueItem = {
