@@ -77,10 +77,14 @@ class MediaRow extends LitElement {
           background: var(--secondary-background-color);
           --icon-width: 35px;
           height: 40px;
+          display: grid;
+          grid-template-columns: 1fr auto;
+          align-items: center;
         }
 
         .row {
           display: flex;
+          min-width: 0;
         }
 
         .thumbnail {
@@ -112,6 +116,7 @@ class MediaRow extends LitElement {
           text-overflow: ellipsis;
           white-space: nowrap;
           min-width: 0;
+          margin-right: 8px;
         }
       `
     ]
