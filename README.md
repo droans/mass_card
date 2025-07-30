@@ -39,7 +39,7 @@ The card does not have a visual editor. Use this configuration to create your ca
 ```yaml
 type: custom:mass-card
 entity: media_player.music_assistant_player
-title: Player Queue
+title: Play Queue
 expanded: false
 ```
 
@@ -48,5 +48,5 @@ expanded: false
 |-----------|------|----------|--------------|---------------------------------------------------------------------------------|
 | type      | str  | Yes      | n/a          | Use `custom:mass-card`                                                          |
 | entity    | str  | Yes      | n/a          | The Music Assistant `media_player` entity to use                                |
-| title     | str  | No       | Player Queue | Header title for card                                                           |
+| title     | str  | No       | Play Queue | Header title for card                                                           |
 | expanded  | bool | No       | false        | Sets card to be expanded by default. User can always manually show/hide content |
