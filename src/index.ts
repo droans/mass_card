@@ -196,6 +196,7 @@ export class MusicAssistantCard extends LitElement {
     if (this.config.expanded) {
       var expanded = 'expanded';
     }
+    console.log(`Got Expanded: ${this.config.expanded}, using ${expanded}`);
     const result = html`
       <ha-expansion-panel
         header=${ttl}
