@@ -23,7 +23,7 @@ class MediaRow extends LitElement {
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${title_trimmed}</div>
         </div>
-        <div slot="meta" class="button-group">
+        <div slot="end" class="button-group">
           <ha-icon-button 
             .path=${mdiArrowCollapseUp}
             class="action-button"
