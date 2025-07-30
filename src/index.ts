@@ -77,6 +77,13 @@ export class MusicAssistantCard extends LitElement {
 
   // This is called when the config is changed/loaded
   public setConfig(config?: Config) {
+    const default_config: any = {
+      title: "Play Queue"
+    };
+    config = {
+      ...default_config,
+      ...config
+    };
     if (!config) {
       throw this.createError('Invalid configuration.');
     }
@@ -183,9 +190,10 @@ export class MusicAssistantCard extends LitElement {
     await this.services.removeQueueItem(queue_item_id);    
   }
   private renderQueue() {
+    const ttl = this.config.title || "Play Queue";
     const result = html`
       <ha-expansion-panel
-        header = "Play Queue"
+        header=${ttl}
       >
         <div class="list">
           <mwc-list>
