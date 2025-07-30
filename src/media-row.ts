@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
 import { 
-  mdiCloseThick,
+  mdiClose,
   mdiArrowCollapseUp,
   mdiArrowUp,
   mdiArrowDown
@@ -52,7 +52,7 @@ class MediaRow extends LitElement {
             }>
           </ha-icon-button>
           <ha-icon-button 
-            .path=${mdiCloseThick}
+            .path=${mdiClose}
             class="action-button"
             @click=${(e) =>{
                 e.stopPropagation();
