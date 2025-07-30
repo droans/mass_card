@@ -192,7 +192,6 @@ export class MusicAssistantCard extends LitElement {
   }
   private renderQueue() {
     const ttl = this.config.title || "Play Queue";
-    console.log(`Got Expanded: ${this.config.expanded}`);
     const result = html`
       <ha-expansion-panel
         header=${ttl} 
