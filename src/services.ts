@@ -56,7 +56,7 @@ export default class HassService {
         }
       )
     } catch (e) {
-      console.error('Error selecting queue item', e)
+      console.error('Error removing queue item', e)
     }
   }
   async MoveQueueItemNext(queue_item_id: string) {
