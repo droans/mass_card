@@ -21,7 +21,7 @@ class MediaRow extends LitElement {
       <mwc-list-item hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row">
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
-          <div class="title">${title_trimmed}</div>
+          <div class="title">${title}</div>
         </div>
         <div slot="meta" class="button-group">
           <ha-icon-button 
