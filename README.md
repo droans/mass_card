@@ -8,8 +8,8 @@
 
 Display the queue for any given media player.
 
-![Queue Card Example](/static/queue_example.png =600x)
-![Queue Card Example Mobile](/static/queue_example_mobile.png =600x)
+<img src="/static/queue_example.png" alt="Queue Card Example" height=300>
+<img src="/static/queue_example_mobile.png" alt="Queue Card Mobile Example" height=300>
 
 [![My Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=mass_card&owner=droans&category=Plugin)
 
