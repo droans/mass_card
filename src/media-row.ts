@@ -1,34 +1,65 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
-import { mdiCloseThick } from '@mdi/js';
+import { 
+  mdiClose,
+  mdiArrowCollapseUp,
+  mdiArrowUp,
+  mdiArrowDown
+} from '@mdi/js';
 import { QueueItem } from './types';
 
 class MediaRow extends LitElement {
   @property({ attribute: false }) item!: QueueItem;
   @property({ type: Boolean }) selected = false;
   @property({ attribute: false}) removeService;
+  @property({ attribute: false}) moveQueueItemNextService;
+  @property({ attribute: false}) moveQueueItemUpService;
+  @property({ attribute: false}) moveQueueItemDownService;
   render() {
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
-    let title_trimmed = title.substring(0,35)
-    if (title !== title_trimmed) {
-      title_trimmed = `${title_trimmed}...`;
-    }
     return html`
       <mwc-list-item hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row">
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
-          <div class="title">${title_trimmed}</div>
+          <div class="title">${title}</div>
         </div>
-        <div slot="meta">
-        <ha-icon-button 
-          .path=${mdiCloseThick}
-          class="remove-button"
-          @click=${(e) =>{
-              e.stopPropagation();
-              this.removeService(this.item.queue_item_id, this.item.media_content_id)
-            }
-          }>
-        </ha-icon-button>
+        <div slot="meta" class="button-group">
+          <ha-icon-button 
+            .path=${mdiArrowCollapseUp}
+            class="action-button"
+            @click=${(e) =>{
+                e.stopPropagation();
+                this.moveQueueItemNextService(this.item.queue_item_id)
+              }
+            }>
+          </ha-icon-button>        
+          <ha-icon-button 
+            .path=${mdiArrowUp}
+            class="action-button"
+            @click=${(e) =>{
+                e.stopPropagation();
+                this.moveQueueItemUpService(this.item.queue_item_id)
+              }
+            }>
+          </ha-icon-button>
+          <ha-icon-button 
+            .path=${mdiArrowDown}
+            class="action-button"
+            @click=${(e) =>{
+                e.stopPropagation();
+                this.moveQueueItemDownService(this.item.queue_item_id)
+              }
+            }>
+          </ha-icon-button>
+          <ha-icon-button 
+            .path=${mdiClose}
+            class="action-button"
+            @click=${(e) =>{
+                e.stopPropagation();
+                this.removeService(this.item.queue_item_id)
+              }
+            }>
+          </ha-icon-button>
         <slot></slot>
         </div>
       </mwc-list-item>
@@ -50,6 +81,7 @@ class MediaRow extends LitElement {
 
         .row {
           display: flex;
+          margin-right: calc(var(--icon-width) * 2 + 8px);
         }
 
         .thumbnail {
@@ -60,17 +92,27 @@ class MediaRow extends LitElement {
           background-position: left;
           padding-left: 12px;
         }
-        .remove-button {
+        .button-group {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 4px;
+        }
+        .action-button {
           width: var(--icon-width);
-          height: var(--icon-width);
           transform: scale(1.5);
-          align-self: end;
+          align-content: center;
         }
 
         .title {
           font-size: 1.1rem;
           align-self: center;
           flex: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          min-width: 0;
         }
       `
     ]
