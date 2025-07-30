@@ -1,12 +1,16 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
-import { mdiCloseThick } from '@mdi/js';
+import { 
+  mdiCloseThick,
+  mdiArrowCollapseUp,
+} from '@mdi/js';
 import { QueueItem } from './types';
 
 class MediaRow extends LitElement {
   @property({ attribute: false }) item!: QueueItem;
   @property({ type: Boolean }) selected = false;
   @property({ attribute: false}) removeService;
+  @property({ attribute: false}) moveQueueItemNextService;
   render() {
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
     let title_trimmed = title.substring(0,35)
@@ -20,6 +24,15 @@ class MediaRow extends LitElement {
           <div class="title">${title_trimmed}</div>
         </div>
         <div slot="meta" class="button-group">
+          <ha-icon-button 
+            .path=${mdiArrowCollapseUp}
+            class="action-button"
+            @click=${(e) =>{
+                e.stopPropagation();
+                this.moveQueueItemNextService(this.item.queue_item_id, this.item.media_content_id)
+              }
+            }>
+          </ha-icon-button>        
           <ha-icon-button 
             .path=${mdiCloseThick}
             class="action-button"
