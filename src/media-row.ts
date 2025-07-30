@@ -19,16 +19,16 @@ class MediaRow extends LitElement {
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${title_trimmed}</div>
         </div>
-        <div slot="meta">
-        <ha-icon-button 
-          .path=${mdiCloseThick}
-          class="remove-button"
-          @click=${(e) =>{
-              e.stopPropagation();
-              this.removeService(this.item.queue_item_id, this.item.media_content_id)
-            }
-          }>
-        </ha-icon-button>
+        <div slot="meta" class="button-group">
+          <ha-icon-button 
+            .path=${mdiCloseThick}
+            class="action-button"
+            @click=${(e) =>{
+                e.stopPropagation();
+                this.removeService(this.item.queue_item_id, this.item.media_content_id)
+              }
+            }>
+          </ha-icon-button>
         <slot></slot>
         </div>
       </mwc-list-item>
@@ -60,11 +60,17 @@ class MediaRow extends LitElement {
           background-position: left;
           padding-left: 12px;
         }
-        .remove-button {
+        .button-group {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 4px;
+        }
+        .action-button {
           width: var(--icon-width);
-          height: var(--icon-width);
           transform: scale(1.5);
-          align-self: end;
+          align-content: center;
         }
 
         .title {
