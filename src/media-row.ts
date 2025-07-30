@@ -112,6 +112,10 @@ class MediaRow extends LitElement {
           font-size: 1.1rem;
           align-self: center;
           flex: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          min-width: 0;
         }
       `
     ]
