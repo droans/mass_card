@@ -186,20 +186,16 @@ export class MusicAssistantCard extends LitElement {
     this.NEW_ID = content_id
     await this.services.playQueueItem(queue_item_id);    
   }
-  private onQueueItemRemoved = async (queue_item_id: string, content_id: string) => {
-    this.NEW_ID = content_id
+  private onQueueItemRemoved = async (queue_item_id: string) => {
     await this.services.removeQueueItem(queue_item_id);    
   }
-  private onQueueItemMoveNext = async (queue_item_id: string, content_id: string) => {
-    this.NEW_ID = content_id
+  private onQueueItemMoveNext = async (queue_item_id: string) => {
     await this.services.MoveQueueItemNext(queue_item_id);    
   }
-  private onQueueItemMoveUp = async (queue_item_id: string, content_id: string) => {
-    this.NEW_ID = content_id
+  private onQueueItemMoveUp = async (queue_item_id: string) => {
     await this.services.MoveQueueItemUp(queue_item_id);    
   }
-  private onQueueItemMoveDown = async (queue_item_id: string, content_id: string) => {
-    this.NEW_ID = content_id
+  private onQueueItemMoveDown = async (queue_item_id: string) => {
     await this.services.MoveQueueItemDown(queue_item_id);    
   }
   private renderQueue() {

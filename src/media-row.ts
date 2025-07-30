@@ -29,7 +29,7 @@ class MediaRow extends LitElement {
             class="action-button"
             @click=${(e) =>{
                 e.stopPropagation();
-                this.moveQueueItemNextService(this.item.queue_item_id, this.item.media_content_id)
+                this.moveQueueItemNextService(this.item.queue_item_id)
               }
             }>
           </ha-icon-button>        
@@ -38,7 +38,7 @@ class MediaRow extends LitElement {
             class="action-button"
             @click=${(e) =>{
                 e.stopPropagation();
-                this.moveQueueItemUpService(this.item.queue_item_id, this.item.media_content_id)
+                this.moveQueueItemUpService(this.item.queue_item_id)
               }
             }>
           </ha-icon-button>
@@ -47,7 +47,7 @@ class MediaRow extends LitElement {
             class="action-button"
             @click=${(e) =>{
                 e.stopPropagation();
-                this.moveQueueItemDownService(this.item.queue_item_id, this.item.media_content_id)
+                this.moveQueueItemDownService(this.item.queue_item_id)
               }
             }>
           </ha-icon-button>
@@ -56,7 +56,7 @@ class MediaRow extends LitElement {
             class="action-button"
             @click=${(e) =>{
                 e.stopPropagation();
-                this.removeService(this.item.queue_item_id, this.item.media_content_id)
+                this.removeService(this.item.queue_item_id)
               }
             }>
           </ha-icon-button>
