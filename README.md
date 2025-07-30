@@ -9,6 +9,7 @@
 Display the queue for any given media player.
 
 ![Queue Card Example](/static/queue_example.png)
+![Queue Card Example Mobile](/static/queue_example_mobile.png)
 
 [![My Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=mass_card&owner=droans&category=Plugin)
 
