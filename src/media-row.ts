@@ -81,7 +81,7 @@ class MediaRow extends LitElement {
 
         .row {
           display: flex;
-          margin-right: calc(var(--icon-width) * 4 * 1.5 + 16px);
+          margin-right: calc(var(--icon-width) * 2 + 8px);
         }
 
         .thumbnail {
