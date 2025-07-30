@@ -192,14 +192,11 @@ export class MusicAssistantCard extends LitElement {
   }
   private renderQueue() {
     const ttl = this.config.title || "Play Queue";
-    var expanded = '';
-    if (this.config.expanded) {
-      var expanded = 'expanded';
-    }
-    console.log(`Got Expanded: ${this.config.expanded}, using ${expanded}`);
+    console.log(`Got Expanded: ${this.config.expanded}`);
     const result = html`
       <ha-expansion-panel
-        header=${ttl} ${expanded}
+        header=${ttl} 
+        .expanded=${this.config.expanded}
       >
         <div class="list">
           <mwc-list>
