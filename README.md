@@ -38,4 +38,6 @@ The card does not have a visual editor. Use this configuration to create your ca
 ```yaml
 type: custom:mass-card
 entity: media_player.music_assistant_player
+title: Player Queue
+expanded: false
 ```
