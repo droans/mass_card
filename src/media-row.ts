@@ -17,10 +17,6 @@ class MediaRow extends LitElement {
   @property({ attribute: false}) moveQueueItemDownService;
   render() {
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
-    let title_trimmed = title.substring(0,35)
-    if (title !== title_trimmed) {
-      title_trimmed = `${title_trimmed}...`;
-    }
     return html`
       <mwc-list-item hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row">
