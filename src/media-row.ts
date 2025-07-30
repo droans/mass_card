@@ -77,15 +77,10 @@ class MediaRow extends LitElement {
           background: var(--secondary-background-color);
           --icon-width: 35px;
           height: 40px;
-          display: flex;
-          align-items: center;
         }
 
         .row {
           display: flex;
-          flex: 1;
-          min-width: 0;
-          margin-right: 8px;
         }
 
         .thumbnail {
@@ -102,7 +97,6 @@ class MediaRow extends LitElement {
           align-items: center;
           justify-content: flex-end;
           gap: 4px;
-          flex-shrink: 0;
         }
         .action-button {
           width: var(--icon-width);
