@@ -3,7 +3,8 @@ import { property } from 'lit/decorators.js'
 import { 
   mdiCloseThick,
   mdiArrowCollapseUp,
-  mdiArrowUp
+  mdiArrowUp,
+  mdiArrowDown
 } from '@mdi/js';
 import { QueueItem } from './types';
 
@@ -13,6 +14,7 @@ class MediaRow extends LitElement {
   @property({ attribute: false}) removeService;
   @property({ attribute: false}) moveQueueItemNextService;
   @property({ attribute: false}) moveQueueItemUpService;
+  @property({ attribute: false}) moveQueueItemDownService;
   render() {
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
     let title_trimmed = title.substring(0,35)
@@ -41,6 +43,15 @@ class MediaRow extends LitElement {
             @click=${(e) =>{
                 e.stopPropagation();
                 this.moveQueueItemUpService(this.item.queue_item_id, this.item.media_content_id)
+              }
+            }>
+          </ha-icon-button>
+          <ha-icon-button 
+            .path=${mdiArrowDown}
+            class="action-button"
+            @click=${(e) =>{
+                e.stopPropagation();
+                this.moveQueueItemDownService(this.item.queue_item_id, this.item.media_content_id)
               }
             }>
           </ha-icon-button>

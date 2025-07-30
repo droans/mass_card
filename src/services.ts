@@ -85,4 +85,17 @@ export default class HassService {
       console.error('Error moving queue item up', e)
     }
   }
+  async MoveQueueItemDown(queue_item_id: string) {
+    try {
+      await this.hass.callService(
+        'mass_queue', 'move_queue_item_down',
+        {
+          entity: this.config.entity,
+          queue_item_id: queue_item_id
+        }
+      )
+    } catch (e) {
+      console.error('Error moving queue item down', e)
+    }
+  }
 }

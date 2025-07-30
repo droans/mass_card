@@ -198,6 +198,10 @@ export class MusicAssistantCard extends LitElement {
     this.NEW_ID = content_id
     await this.services.MoveQueueItemUp(queue_item_id);    
   }
+  private onQueueItemMoveDown = async (queue_item_id: string, content_id: string) => {
+    this.NEW_ID = content_id
+    await this.services.MoveQueueItemDown(queue_item_id);    
+  }
   private renderQueue() {
     const ttl = this.config.title || "Play Queue";
     const result = html`
@@ -218,6 +222,7 @@ export class MusicAssistantCard extends LitElement {
                       .removeService=${this.onQueueItemRemoved}
                       .moveQueueItemNextService=${this.onQueueItemMoveNext}
                       .moveQueueItemUpService=${this.onQueueItemMoveUp}
+                      .moveQueueItemDownService=${this.onQueueItemMoveDown}
                     >
                     </mass-media-row>
                   `
