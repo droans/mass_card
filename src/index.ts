@@ -26,8 +26,8 @@ declare global {
 
 console.info(
   `%c ${cardName}${DEV ? ' DEV' : ''} \n%c Version v${version}`,
-  'color: orange; font-weight: bold; background: black',
-  'color: white; font-weight: bold; background: dimgray',
+  'color: teal; font-weight: bold; background: lightgray',
+  'color: darkblue; font-weight: bold; background: white',
 );
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
