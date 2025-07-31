@@ -110,7 +110,6 @@ export class MusicAssistantCard extends LitElement {
       }
       return element;
     });
-    console.log(result);
     return result
   }
 
