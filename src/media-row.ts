@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
-import { 
+import {
   mdiClose,
   mdiArrowCollapseUp,
   mdiArrowUp,
@@ -24,7 +24,7 @@ class MediaRow extends LitElement {
           <div class="title">${title}</div>
         </div>
         <div slot="meta" class="button-group">
-          <ha-icon-button 
+          <ha-icon-button
             .path=${mdiArrowCollapseUp}
             class="action-button"
             @click=${(e) =>{
@@ -32,8 +32,8 @@ class MediaRow extends LitElement {
                 this.moveQueueItemNextService(this.item.queue_item_id)
               }
             }>
-          </ha-icon-button>        
-          <ha-icon-button 
+          </ha-icon-button>
+          <ha-icon-button
             .path=${mdiArrowUp}
             class="action-button"
             @click=${(e) =>{
@@ -42,7 +42,7 @@ class MediaRow extends LitElement {
               }
             }>
           </ha-icon-button>
-          <ha-icon-button 
+          <ha-icon-button
             .path=${mdiArrowDown}
             class="action-button"
             @click=${(e) =>{
@@ -51,7 +51,7 @@ class MediaRow extends LitElement {
               }
             }>
           </ha-icon-button>
-          <ha-icon-button 
+          <ha-icon-button
             .path=${mdiClose}
             class="action-button"
             @click=${(e) =>{
