@@ -101,12 +101,15 @@ export class MusicAssistantCard extends LitElement {
   }
   private updateActiveTrack(queue: QueueItem[]): QueueItem[] {
     let content_id = this.newId;
+    let visibility = 'hidden';
     if (!content_id.length) {
       content_id = this.hass.states[this.config.entity].attributes.media_content_id;
     }
     let result = queue.map( (element) => {
+      element.visibility = visibility;
       if (element.media_content_id == content_id) {
         element.playing = true;
+        visibility = 'visible';
       }
       return element;
     });

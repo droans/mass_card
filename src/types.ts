@@ -12,4 +12,5 @@ export type QueueItem = {
   playing: boolean;
   queue_item_id: string;
   media_image: string;
+  visibility: string;
 }
