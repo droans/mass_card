@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js'
-import { 
+import {
   mdiClose,
   mdiArrowCollapseUp,
   mdiArrowUp,
@@ -11,10 +11,10 @@ import { QueueItem } from './types';
 class MediaRow extends LitElement {
   @property({ attribute: false }) item!: QueueItem;
   @property({ type: Boolean }) selected = false;
-  @property({ attribute: false}) removeService;
-  @property({ attribute: false}) moveQueueItemNextService;
-  @property({ attribute: false}) moveQueueItemUpService;
-  @property({ attribute: false}) moveQueueItemDownService;
+  public removeService;
+  public moveQueueItemNextService;
+  public moveQueueItemUpService;
+  public moveQueueItemDownService;
   render() {
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
     return html`
@@ -23,8 +23,8 @@ class MediaRow extends LitElement {
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${title}</div>
         </div>
-        <div slot="meta" class="button-group">
-          <ha-icon-button 
+        <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
+          <ha-icon-button
             .path=${mdiArrowCollapseUp}
             class="action-button"
             @click=${(e) =>{
@@ -32,8 +32,8 @@ class MediaRow extends LitElement {
                 this.moveQueueItemNextService(this.item.queue_item_id)
               }
             }>
-          </ha-icon-button>        
-          <ha-icon-button 
+          </ha-icon-button>
+          <ha-icon-button
             .path=${mdiArrowUp}
             class="action-button"
             @click=${(e) =>{
@@ -42,7 +42,7 @@ class MediaRow extends LitElement {
               }
             }>
           </ha-icon-button>
-          <ha-icon-button 
+          <ha-icon-button
             .path=${mdiArrowDown}
             class="action-button"
             @click=${(e) =>{
@@ -51,7 +51,7 @@ class MediaRow extends LitElement {
               }
             }>
           </ha-icon-button>
-          <ha-icon-button 
+          <ha-icon-button
             .path=${mdiClose}
             class="action-button"
             @click=${(e) =>{
@@ -74,7 +74,7 @@ class MediaRow extends LitElement {
         .button {
           margin: 0.3rem;
           border-radius: 0.3rem;
-          background: var(--secondary-background-color);
+          background: var(--card-background-color);
           --icon-width: 35px;
           height: 40px;
         }
