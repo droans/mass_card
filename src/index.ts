@@ -99,7 +99,7 @@ export class MusicAssistantCard extends LitElement {
       this.queue = []
     }
   }
-  private updateActiveTrack(queue) {
+  private updateActiveTrack(queue: QueueItem[]): QueueItem[] {
     let content_id = this.newId;
     if (!content_id.length) {
       content_id = this.hass.states[this.config.entity].attributes.media_content_id;
