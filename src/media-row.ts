@@ -11,10 +11,10 @@ import { QueueItem } from './types';
 class MediaRow extends LitElement {
   @property({ attribute: false }) item!: QueueItem;
   @property({ type: Boolean }) selected = false;
-  @property({ attribute: false}) removeService;
-  @property({ attribute: false}) moveQueueItemNextService;
-  @property({ attribute: false}) moveQueueItemUpService;
-  @property({ attribute: false}) moveQueueItemDownService;
+  public removeService;
+  public moveQueueItemNextService;
+  public moveQueueItemUpService;
+  public moveQueueItemDownService;
   render() {
     let title = `${this.item.media_title} - ${this.item.media_artist}`;
     return html`
