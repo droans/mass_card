@@ -1,5 +1,5 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, PropertyValues } from 'lit';
-import { cache } from 'lit/directives/cache.js';
+import { keyed } from 'lit/directives/keyed.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import {
   type HomeAssistant,
@@ -178,22 +178,24 @@ export class MusicAssistantCard extends LitElement {
   }
 
   private renderQueueItems() {
-    return cache(this.queue.map(
+    return this.queue.map(
       (item) => {
-        return html`
-          <mass-media-row
-            .item=${item}
-            .selected=${item.playing}
-            .selectedService=${this.onQueueItemSelected}
-            .removeService=${this.onQueueItemRemoved}
-            .moveQueueItemNextService=${this.onQueueItemMoveNext}
-            .moveQueueItemUpService=${this.onQueueItemMoveUp}
-            .moveQueueItemDownService=${this.onQueueItemMoveDown}
-          >
-          </mass-media-row>
-        `
+        return keyed(
+          item.queue_item_id, 
+          html`
+            <mass-media-row
+              .item=${item}
+              .selected=${item.playing}
+              .selectedService=${this.onQueueItemSelected}
+              .removeService=${this.onQueueItemRemoved}
+              .moveQueueItemNextService=${this.onQueueItemMoveNext}
+              .moveQueueItemUpService=${this.onQueueItemMoveUp}
+              .moveQueueItemDownService=${this.onQueueItemMoveDown}
+            >
+            </mass-media-row>`
+        )
       }
-    ));
+    );
   }
 
   protected render() {
