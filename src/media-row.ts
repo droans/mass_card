@@ -37,11 +37,17 @@ class MediaRow extends LitElement {
     this.selectedService(this.item.queue_item_id, this.item.media_content_id);
   }
   protected shouldUpdate(_changedProperties): boolean {
+    if (_changedProperties.has('selected')) {
+      return true;
+    }
     if (_changedProperties.has('item')) {
       const oldItem = _changedProperties.get('item');
-      return oldItem != this.item;
+      return oldItem.card_media_title !== this.item.card_media_title 
+        || oldItem.media_image !== this.item.media_image
+        || oldItem.playing !== this.item.playing
+        || oldItem.visibility !== this.item.visibility
     }
-    return _changedProperties.has('item') || _changedProperties.has('selected');
+    return true;
   }
   render() {
     return html`
