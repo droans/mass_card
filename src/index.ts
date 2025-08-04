@@ -50,12 +50,29 @@ export class MusicAssistantCard extends LitElement {
   private defaultHeaderTitle: string = "Player Queue";
   private defaultExpand: boolean = false;
   private services!: HassService;
+  private _listening: boolean = false;
+  private _unsubscribe: any;
+  private queueID: string = '';
 
   constructor() {
     super();
     this.queue = [];
   }
-
+  private eventListener = (event: any) => {
+    let event_data = event.data;
+    if (event_data.type == 'queue_updated') {
+      const updated_queue_id = event_data.data.queue_id;
+      if (updated_queue_id == this.queueID) {
+        this.getQueue();
+    }}
+  }
+  private subscribeUpdates() {
+    this._unsubscribe = this.hass.connection.subscribeEvents(
+      this.eventListener, 
+      "mass_queue"
+    );
+    this._listening = true;
+  }
   static getConfigElement() {
     return document.createElement(`${cardId}-editor${DEV ? '-dev' : ''}`);
   }
@@ -95,6 +112,7 @@ export class MusicAssistantCard extends LitElement {
           this.queue = this.updateActiveTrack(queue);
         }
       );
+      this.queueID = this.hass.states[this.config.entity].attributes.active_queue;
     } catch (e) {
       this.queue = []
     }
@@ -120,25 +138,24 @@ export class MusicAssistantCard extends LitElement {
   }
   private onQueueItemRemoved = async (queue_item_id: string) => {
     await this.services.removeQueueItem(queue_item_id);
-    this.getQueue();
   }
   private onQueueItemMoveNext = async (queue_item_id: string) => {
     await this.services.MoveQueueItemNext(queue_item_id);
-    this.getQueue();
   }
   private onQueueItemMoveUp = async (queue_item_id: string) => {
     await this.services.MoveQueueItemUp(queue_item_id);
-    this.getQueue();
   }
   private onQueueItemMoveDown = async (queue_item_id: string) => {
     await this.services.MoveQueueItemDown(queue_item_id);
-    this.getQueue();
   }
 
   protected willUpdate(_changedProperties: PropertyValues): void {
     if (_changedProperties.has('hass') || _changedProperties.has('config')) {
       if (this.hass && this.config) {
         this.services = new HassService(this.hass, this.config);
+      }
+      if (!this._listening) {
+        this.subscribeUpdates();
       }
     }
   }
