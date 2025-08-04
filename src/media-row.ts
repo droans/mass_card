@@ -94,7 +94,7 @@ class MediaRow extends LitElement {
         }
         .button {
           margin: 0.3rem;
-          border-radius: 0.3rem;
+          border-radius: 0.7rem;
           background: var(--card-background-color);
           --icon-width: 35px;
           height: 40px;
