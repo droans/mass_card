@@ -111,6 +111,7 @@ export class MusicAssistantCard extends LitElement {
         element.playing = true;
         visibility = 'visible';
       }
+      element.card_media_title = `${element.media_title} - ${element.media_artist}`;
       return element;
     });
     return result

@@ -16,12 +16,11 @@ class MediaRow extends LitElement {
   public moveQueueItemUpService;
   public moveQueueItemDownService;
   render() {
-    let title = `${this.item.media_title} - ${this.item.media_artist}`;
     return html`
       <mwc-list-item hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row">
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
-          <div class="title">${title}</div>
+          <div class="title">${this.item.card_media_title}</div>
         </div>
         <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
           <ha-icon-button

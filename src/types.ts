@@ -13,4 +13,5 @@ export type QueueItem = {
   queue_item_id: string;
   media_image: string;
   visibility: string;
+  card_media_title: string;
 }
