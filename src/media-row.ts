@@ -15,9 +15,30 @@ class MediaRow extends LitElement {
   public moveQueueItemNextService;
   public moveQueueItemUpService;
   public moveQueueItemDownService;
+  public selectedService;
+  
+  private callMoveItemUpService(e) {
+    e.stopPropagation();
+    this.moveQueueItemUpService(this.item.queue_item_id);
+  }
+  private callMoveItemDownService(e) {
+    e.stopPropagation();
+    this.moveQueueItemDownService(this.item.queue_item_id);
+  }
+  private callMoveItemNextService(e) {
+    e.stopPropagation();
+    this.moveQueueItemNextService(this.item.queue_item_id);
+  }
+  private callRemoveItemService(e) {
+    e.stopPropagation();
+    this.removeService(this.item.queue_item_id);
+  }
+  private callOnQueueItemSelectedService() {
+    this.selectedService(this.item.queue_item_id, this.item.media_content_id);
+  }
   render() {
     return html`
-      <mwc-list-item hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
+      <mwc-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row">
           <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${this.item.card_media_title}</div>
@@ -26,38 +47,26 @@ class MediaRow extends LitElement {
           <ha-icon-button
             .path=${mdiArrowCollapseUp}
             class="action-button"
-            @click=${(e) =>{
-                e.stopPropagation();
-                this.moveQueueItemNextService(this.item.queue_item_id)
-              }
-            }>
+            @click=${this.callMoveItemNextService}
+            >
           </ha-icon-button>
           <ha-icon-button
             .path=${mdiArrowUp}
             class="action-button"
-            @click=${(e) =>{
-                e.stopPropagation();
-                this.moveQueueItemUpService(this.item.queue_item_id)
-              }
-            }>
+            @click=${this.callMoveItemUpService}
+            >
           </ha-icon-button>
           <ha-icon-button
             .path=${mdiArrowDown}
             class="action-button"
-            @click=${(e) =>{
-                e.stopPropagation();
-                this.moveQueueItemDownService(this.item.queue_item_id)
-              }
-            }>
+            @click=${this.callMoveItemDownService}
+            >
           </ha-icon-button>
           <ha-icon-button
             .path=${mdiClose}
             class="action-button"
-            @click=${(e) =>{
-                e.stopPropagation();
-                this.removeService(this.item.queue_item_id)
-              }
-            }>
+            @click=${this.callRemoveItemService}
+            >
           </ha-icon-button>
         <slot></slot>
         </div>

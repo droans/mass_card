@@ -186,9 +186,9 @@ export class MusicAssistantCard extends LitElement {
       (item) => {
         return html`
           <mass-media-row
-            @click=${() => this.onQueueItemSelected(item.queue_item_id, item.media_content_id)}
             .item=${item}
             .selected=${item.playing}
+            .selectedService=${this.onQueueItemSelected}
             .removeService=${this.onQueueItemRemoved}
             .moveQueueItemNextService=${this.onQueueItemMoveNext}
             .moveQueueItemUpService=${this.onQueueItemMoveUp}
