@@ -138,6 +138,7 @@ export class MusicAssistantCard extends LitElement {
   }
   private onQueueItemRemoved = async (queue_item_id: string) => {
     await this.services.removeQueueItem(queue_item_id);
+    this.queue = this.queue.filter( (item) => item.queue_item_id !== queue_item_id);
   }
   private onQueueItemMoveNext = async (queue_item_id: string) => {
     await this.services.MoveQueueItemNext(queue_item_id);
