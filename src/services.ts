@@ -12,7 +12,7 @@ export default class HassService {
 
   async getQueue(): Promise<QueueItem[]> {
     try {
-      const ret1 = await this.hass.callWS<any>({
+      const ret = await this.hass.callWS<any>({
         type: 'call_service',
         domain: 'mass_queue',
         service: 'get_queue_items',
@@ -22,11 +22,7 @@ export default class HassService {
         },
         return_response: true
       });
-      const queueItems = ret1.response[this.config.entity];
-      const result = queueItems.map( (element) => {
-        element.playing = false;
-        return element;
-      });
+      const result = ret.response[this.config.entity];
       return result;
     } catch (e) {
       console.error('Error getting queue', e);
