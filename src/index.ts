@@ -101,20 +101,16 @@ export class MusicAssistantCard extends LitElement {
   }
   private updateActiveTrack(queue: QueueItem[]): QueueItem[] {
     let content_id = this.newId;
-    let visibility = 'hidden';
     if (!content_id.length) {
       content_id = this.hass.states[this.config.entity].attributes.media_content_id;
     }
-    let result = queue.map( (element) => {
-      element.visibility = visibility;
-      if (element.media_content_id == content_id) {
-        element.playing = true;
-        visibility = 'visible';
-      }
-      element.card_media_title = `${element.media_title} - ${element.media_artist}`;
-      return element;
-    });
-    return result
+    const activeIndex = queue.findIndex(item => item.media_content_id === content_id);
+    return queue.map( (element, index) => ({
+      ...element,
+      playing: index === activeIndex,
+      visibility: index >= activeIndex ? 'visible' : 'hidden',
+      card_media_title: `${element.media_title} - ${element.media_artist}`
+    }));
   }
 
   private onQueueItemSelected = async (queue_item_id: string, content_id: string) => {
