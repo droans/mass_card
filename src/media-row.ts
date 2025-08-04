@@ -36,6 +36,13 @@ class MediaRow extends LitElement {
   private callOnQueueItemSelectedService() {
     this.selectedService(this.item.queue_item_id, this.item.media_content_id);
   }
+  protected shouldUpdate(_changedProperties): boolean {
+    if (_changedProperties.has('item')) {
+      const oldItem = _changedProperties.get('item');
+      return oldItem != this.item;
+    }
+    return _changedProperties.has('item') || _changedProperties.has('selected');
+  }
   render() {
     return html`
       <mwc-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
