@@ -101,7 +101,15 @@ export class MusicAssistantCard extends LitElement {
       ...config
     }
   }
-
+  private getQueueItemIndex(queue_item_id: string, queue: QueueItem[] = []): number {
+    if (!queue.length) {
+      queue = this.queue;
+    }
+    return queue.findIndex(item => item.queue_item_id == queue_item_id)
+  }
+  private moveQueueItem(old_index, new_index) {
+    this.queue.splice(new_index, 0, this.queue.splice(old_index, 1)[0]);
+  }
   private getQueue() {
     if (!this.services) {
       return;
@@ -141,12 +149,21 @@ export class MusicAssistantCard extends LitElement {
     this.queue = this.queue.filter( (item) => item.queue_item_id !== queue_item_id);
   }
   private onQueueItemMoveNext = async (queue_item_id: string) => {
+    const cur_idx = this.getQueueItemIndex(queue_item_id) ;
+    const new_idx = this.queue.findIndex(item => item.playing) + 1;
+    this.moveQueueItem(cur_idx, new_idx);
     await this.services.MoveQueueItemNext(queue_item_id);
   }
   private onQueueItemMoveUp = async (queue_item_id: string) => {
+    const cur_idx = this.getQueueItemIndex(queue_item_id);
+    const new_idx = cur_idx - 1;
+    this.moveQueueItem(cur_idx, new_idx);
     await this.services.MoveQueueItemUp(queue_item_id);
   }
   private onQueueItemMoveDown = async (queue_item_id: string) => {
+    const cur_idx = this.getQueueItemIndex(queue_item_id);
+    const new_idx = cur_idx + 1;
+    this.moveQueueItem(cur_idx, new_idx);
     await this.services.MoveQueueItemDown(queue_item_id);
   }
 
