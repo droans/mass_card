@@ -3,7 +3,7 @@
   "description": "Custom Music Assistant Card for Home Assistant",
   "repository": "https://github.com/droans/mass_card",
   "author": "Michael Carroll",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "module": "mass-card.js",
   "keywords": [
     "home-assistant",

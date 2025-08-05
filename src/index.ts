@@ -1,5 +1,5 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, PropertyValues } from 'lit';
-import { cache } from 'lit/directives/cache.js';
+import { keyed } from 'lit/directives/keyed.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import {
   type HomeAssistant,
@@ -50,12 +50,29 @@ export class MusicAssistantCard extends LitElement {
   private defaultHeaderTitle: string = "Player Queue";
   private defaultExpand: boolean = false;
   private services!: HassService;
+  private _listening: boolean = false;
+  private _unsubscribe: any;
+  private queueID: string = '';
 
   constructor() {
     super();
     this.queue = [];
   }
-
+  private eventListener = (event: any) => {
+    let event_data = event.data;
+    if (event_data.type == 'queue_updated') {
+      const updated_queue_id = event_data.data.queue_id;
+      if (updated_queue_id == this.queueID) {
+        this.getQueue();
+    }}
+  }
+  private subscribeUpdates() {
+    this._unsubscribe = this.hass.connection.subscribeEvents(
+      this.eventListener, 
+      "mass_queue"
+    );
+    this._listening = true;
+  }
   static getConfigElement() {
     return document.createElement(`${cardId}-editor${DEV ? '-dev' : ''}`);
   }
@@ -84,7 +101,15 @@ export class MusicAssistantCard extends LitElement {
       ...config
     }
   }
-
+  private getQueueItemIndex(queue_item_id: string, queue: QueueItem[] = []): number {
+    if (!queue.length) {
+      queue = this.queue;
+    }
+    return queue.findIndex(item => item.queue_item_id == queue_item_id)
+  }
+  private moveQueueItem(old_index, new_index) {
+    this.queue.splice(new_index, 0, this.queue.splice(old_index, 1)[0]);
+  }
   private getQueue() {
     if (!this.services) {
       return;
@@ -95,25 +120,23 @@ export class MusicAssistantCard extends LitElement {
           this.queue = this.updateActiveTrack(queue);
         }
       );
+      this.queueID = this.hass.states[this.config.entity].attributes.active_queue;
     } catch (e) {
       this.queue = []
     }
   }
   private updateActiveTrack(queue: QueueItem[]): QueueItem[] {
     let content_id = this.newId;
-    let visibility = 'hidden';
     if (!content_id.length) {
       content_id = this.hass.states[this.config.entity].attributes.media_content_id;
     }
-    let result = queue.map( (element) => {
-      element.visibility = visibility;
-      if (element.media_content_id == content_id) {
-        element.playing = true;
-        visibility = 'visible';
-      }
-      return element;
-    });
-    return result
+    const activeIndex = queue.findIndex(item => item.media_content_id === content_id);
+    return queue.map( (element, index) => ({
+      ...element,
+      playing: index === activeIndex,
+      visibility: index >= activeIndex ? 'visible' : 'hidden',
+      card_media_title: `${element.media_title} - ${element.media_artist}`
+    }));
   }
 
   private onQueueItemSelected = async (queue_item_id: string, content_id: string) => {
@@ -123,25 +146,34 @@ export class MusicAssistantCard extends LitElement {
   }
   private onQueueItemRemoved = async (queue_item_id: string) => {
     await this.services.removeQueueItem(queue_item_id);
-    this.getQueue();
+    this.queue = this.queue.filter( (item) => item.queue_item_id !== queue_item_id);
   }
   private onQueueItemMoveNext = async (queue_item_id: string) => {
+    const cur_idx = this.getQueueItemIndex(queue_item_id) ;
+    const new_idx = this.queue.findIndex(item => item.playing) + 1;
+    this.moveQueueItem(cur_idx, new_idx);
     await this.services.MoveQueueItemNext(queue_item_id);
-    this.getQueue();
   }
   private onQueueItemMoveUp = async (queue_item_id: string) => {
+    const cur_idx = this.getQueueItemIndex(queue_item_id);
+    const new_idx = cur_idx - 1;
+    this.moveQueueItem(cur_idx, new_idx);
     await this.services.MoveQueueItemUp(queue_item_id);
-    this.getQueue();
   }
   private onQueueItemMoveDown = async (queue_item_id: string) => {
+    const cur_idx = this.getQueueItemIndex(queue_item_id);
+    const new_idx = cur_idx + 1;
+    this.moveQueueItem(cur_idx, new_idx);
     await this.services.MoveQueueItemDown(queue_item_id);
-    this.getQueue();
   }
 
   protected willUpdate(_changedProperties: PropertyValues): void {
     if (_changedProperties.has('hass') || _changedProperties.has('config')) {
       if (this.hass && this.config) {
         this.services = new HassService(this.hass, this.config);
+      }
+      if (!this._listening) {
+        this.subscribeUpdates();
       }
     }
   }
@@ -181,22 +213,24 @@ export class MusicAssistantCard extends LitElement {
   }
 
   private renderQueueItems() {
-    return cache(this.queue.map(
+    return this.queue.map(
       (item) => {
-        return html`
-          <mass-media-row
-            @click=${() => this.onQueueItemSelected(item.queue_item_id, item.media_content_id)}
-            .item=${item}
-            .selected=${item.playing}
-            .removeService=${this.onQueueItemRemoved}
-            .moveQueueItemNextService=${this.onQueueItemMoveNext}
-            .moveQueueItemUpService=${this.onQueueItemMoveUp}
-            .moveQueueItemDownService=${this.onQueueItemMoveDown}
-          >
-          </mass-media-row>
-        `
+        return keyed(
+          item.queue_item_id, 
+          html`
+            <mass-media-row
+              .item=${item}
+              .selected=${item.playing}
+              .selectedService=${this.onQueueItemSelected}
+              .removeService=${this.onQueueItemRemoved}
+              .moveQueueItemNextService=${this.onQueueItemMoveNext}
+              .moveQueueItemUpService=${this.onQueueItemMoveUp}
+              .moveQueueItemDownService=${this.onQueueItemMoveDown}
+            >
+            </mass-media-row>`
+        )
       }
-    ));
+    );
   }
 
   protected render() {
