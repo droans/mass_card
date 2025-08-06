@@ -12,7 +12,10 @@
     "hacs",
     "lovelace",
     "custom-cards",
-    "music-assistant"
+    "music-assistant",
+    "mass",
+    "music",
+    "assistant"
   ],
   "license": "MIT",
   "type": "module",
