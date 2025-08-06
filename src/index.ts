@@ -142,6 +142,7 @@ export class MusicAssistantCard extends LitElement {
     return queue.map( (element, index) => ({
       ...element,
       playing: index === activeIndex,
+      visibility: index > activeIndex ? 'visible' : 'hidden',
       show_move_up_next: index > activeIndex + 1 ? 'visible' : 'hidden',
       card_media_title: this.config.show_artist_names ? `${element.media_title} - ${element.media_artist}` : element.media_title
     }));
