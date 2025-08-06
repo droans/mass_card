@@ -48,9 +48,13 @@ expanded: false
 ```
 
 ## Parameters
-| Parameter | Type | Required | Default      | Description                                                                     |
-|-----------|------|----------|--------------|---------------------------------------------------------------------------------|
-| type      | str  | Yes      | n/a          | Use `custom:mass-card`                                                          |
-| entity    | str  | Yes      | n/a          | The Music Assistant `media_player` entity to use                                |
-| title     | str  | No       | Play Queue | Header title for card                                                           |
-| expanded  | bool | No       | false        | Sets card to be expanded by default. User can always manually show/hide content |
+| Parameter         | Type | Required | Default      | Description                                                                     |
+|-------------------|------|----------|--------------|---------------------------------------------------------------------------------|
+| type              | str  | Yes      | n/a          | Use `custom:mass-card`                                                          |
+| entity            | str  | Yes      | n/a          | The Music Assistant `media_player` entity to use                                |
+| title             | str  | No       | Play Queue   | Header title for card                                                           |
+| expanded          | bool | No       | false        | Sets card to be expanded by default. User can always manually show/hide content |
+| limit_before      | int  | No       | 5            | Number of item to display before current active item                            |
+| limit_after       | int  | No       | 100          | Number of item to display after current active item                             |
+| show_album_covers | bool | No       | true         | Show album cover images for each item                                           |
+| show_artist_names | bool | No       | true         | Show artist names for each item                                                 |

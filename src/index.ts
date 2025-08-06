@@ -49,6 +49,10 @@ export class MusicAssistantCard extends LitElement {
   private newId: string = '';
   private defaultHeaderTitle: string = "Player Queue";
   private defaultExpand: boolean = false;
+  private defaultLimitBefore: number = 5;
+  private defaultLimitAfter: number = 100;
+  private defaultShowAlbumCovers: boolean = true;
+  private defaultShowArtistNames: boolean = true;
   private services!: HassService;
   private _listening: boolean = false;
   private _unsubscribe: any;
@@ -88,7 +92,11 @@ export class MusicAssistantCard extends LitElement {
   public setConfig(config?: Config) {
     const default_config: any = {
       expanded: this.defaultExpand,
-      title: this.defaultHeaderTitle
+      title: this.defaultHeaderTitle,
+      limit_before: this.defaultLimitBefore,
+      limit_after: this.defaultLimitAfter,
+      show_album_covers: this.defaultShowAlbumCovers,
+      show_artist_names: this.defaultShowArtistNames
     }
     if (!config) {
       throw this.createError('Invalid configuration')
@@ -115,7 +123,7 @@ export class MusicAssistantCard extends LitElement {
       return;
     }
     try {
-      this.services.getQueue().then(
+      this.services.getQueue(this.config.limit_before, this.config.limit_after).then(
         (queue) => {
           this.queue = this.updateActiveTrack(queue);
         }
@@ -134,8 +142,9 @@ export class MusicAssistantCard extends LitElement {
     return queue.map( (element, index) => ({
       ...element,
       playing: index === activeIndex,
-      visibility: index >= activeIndex ? 'visible' : 'hidden',
-      card_media_title: `${element.media_title} - ${element.media_artist}`
+      visibility: index > activeIndex ? 'visible' : 'hidden',
+      show_move_up_next: index > activeIndex + 1 ? 'visible' : 'hidden',
+      card_media_title: this.config.show_artist_names ? `${element.media_title} - ${element.media_artist}` : element.media_title
     }));
   }
 
@@ -213,6 +222,7 @@ export class MusicAssistantCard extends LitElement {
   }
 
   private renderQueueItems() {
+    const show_album_covers = this.config.show_album_covers;
     return this.queue.map(
       (item) => {
         return keyed(
@@ -221,6 +231,8 @@ export class MusicAssistantCard extends LitElement {
             <mass-media-row
               .item=${item}
               .selected=${item.playing}
+              .showAlbumCovers=${show_album_covers}
+              .showMoveUpNext=${item.show_move_up_next}
               .selectedService=${this.onQueueItemSelected}
               .removeService=${this.onQueueItemRemoved}
               .moveQueueItemNextService=${this.onQueueItemMoveNext}
@@ -240,9 +252,9 @@ export class MusicAssistantCard extends LitElement {
         .expanded=${this.config.expanded}
       >
         <div class="list">
-          <mwc-list>
+          <ha-list>
             ${this.renderQueueItems()}
-          </mwc-list>
+          </ha-list>
         </div>
       </ha-expansion-panel>
     `

@@ -10,7 +10,7 @@ export default class HassService {
     this.config = config;
   }
 
-  async getQueue(): Promise<QueueItem[]> {
+  async getQueue(limit_before: number, limit_after: number): Promise<QueueItem[]> {
     try {
       const ret = await this.hass.callWS<any>({
         type: 'call_service',
@@ -18,7 +18,8 @@ export default class HassService {
         service: 'get_queue_items',
         service_data: {
           entity: this.config.entity,
-          limit: 100
+          limit_before: limit_before,
+          limit_after: limit_after,
         },
         return_response: true
       });

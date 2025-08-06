@@ -16,6 +16,7 @@ class MediaRow extends LitElement {
   public moveQueueItemUpService;
   public moveQueueItemDownService;
   public selectedService;
+  public showAlbumCovers: boolean = true;
   
   private callMoveItemUpService(e) {
     e.stopPropagation();
@@ -46,25 +47,29 @@ class MediaRow extends LitElement {
         || oldItem.media_image !== this.item.media_image
         || oldItem.playing !== this.item.playing
         || oldItem.visibility !== this.item.visibility
+        || oldItem.show_move_up_next !== this.item.show_move_up_next
     }
     return true;
   }
   render() {
+    const played = this.item.visibility == 'hidden' && !this.item.playing;
     return html`
-      <mwc-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
-        <div class="row">
-          <div class="thumbnail" ?hidden=${!this.item.media_image} style="background-image: url(${this.item.media_image})"></div>
+      <ha-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
+        <div class="row${played ? '-disabled' : ''}">
+          <div class="thumbnail" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: ${played ? 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),' : ''} url(${this.item.media_image})"></div>
           <div class="title">${this.item.card_media_title}</div>
         </div>
         <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
           <ha-icon-button
             .path=${mdiArrowCollapseUp}
             class="action-button"
+            style="visibility: ${this.item.show_move_up_next}"
             @click=${this.callMoveItemNextService}
             >
           </ha-icon-button>
           <ha-icon-button
             .path=${mdiArrowUp}
+            style="visibility: ${this.item.show_move_up_next}"
             class="action-button"
             @click=${this.callMoveItemUpService}
             >
@@ -83,7 +88,7 @@ class MediaRow extends LitElement {
           </ha-icon-button>
         <slot></slot>
         </div>
-      </mwc-list-item>
+      </ha-list-item>
     `;
   }
   static get styles() {
@@ -101,6 +106,11 @@ class MediaRow extends LitElement {
         }
 
         .row {
+          display: flex;
+          margin-right: calc(var(--icon-width) * 2 + 8px);
+        }
+        .row-disabled {
+          --font-color: var(--disabled-text-color);
           display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
@@ -134,6 +144,7 @@ class MediaRow extends LitElement {
           text-overflow: ellipsis;
           white-space: nowrap;
           min-width: 0;
+          color: var(--font-color);
         }
       `
     ]
