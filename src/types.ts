@@ -2,6 +2,8 @@ export type Config = {
   entity: string;
   title: string;
   expanded: boolean;
+  limit_before: number;
+  limit_after: number;
 }
 
 export type QueueItem = {

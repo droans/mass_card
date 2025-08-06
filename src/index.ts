@@ -49,6 +49,8 @@ export class MusicAssistantCard extends LitElement {
   private newId: string = '';
   private defaultHeaderTitle: string = "Player Queue";
   private defaultExpand: boolean = false;
+  private defaultLimitBefore: number = 5;
+  private defaultLimitAfter: number = 100;
   private services!: HassService;
   private _listening: boolean = false;
   private _unsubscribe: any;
@@ -88,7 +90,9 @@ export class MusicAssistantCard extends LitElement {
   public setConfig(config?: Config) {
     const default_config: any = {
       expanded: this.defaultExpand,
-      title: this.defaultHeaderTitle
+      title: this.defaultHeaderTitle,
+      limit_before: this.defaultLimitBefore,
+      limit_after: this.defaultLimitAfter,
     }
     if (!config) {
       throw this.createError('Invalid configuration')
@@ -115,7 +119,7 @@ export class MusicAssistantCard extends LitElement {
       return;
     }
     try {
-      this.services.getQueue().then(
+      this.services.getQueue(this.config.limit_before, this.config.limit_after).then(
         (queue) => {
           this.queue = this.updateActiveTrack(queue);
         }
