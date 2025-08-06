@@ -51,6 +51,7 @@ export class MusicAssistantCard extends LitElement {
   private defaultExpand: boolean = false;
   private defaultLimitBefore: number = 5;
   private defaultLimitAfter: number = 100;
+  private defaultShowAlbumCovers: boolean = true;
   private services!: HassService;
   private _listening: boolean = false;
   private _unsubscribe: any;
@@ -93,6 +94,7 @@ export class MusicAssistantCard extends LitElement {
       title: this.defaultHeaderTitle,
       limit_before: this.defaultLimitBefore,
       limit_after: this.defaultLimitAfter,
+      show_album_covers: this.defaultShowAlbumCovers
     }
     if (!config) {
       throw this.createError('Invalid configuration')
@@ -217,6 +219,7 @@ export class MusicAssistantCard extends LitElement {
   }
 
   private renderQueueItems() {
+    const show_album_covers = this.config.show_album_covers;
     return this.queue.map(
       (item) => {
         return keyed(
@@ -225,6 +228,7 @@ export class MusicAssistantCard extends LitElement {
             <mass-media-row
               .item=${item}
               .selected=${item.playing}
+              .showAlbumCovers=${show_album_covers}
               .selectedService=${this.onQueueItemSelected}
               .removeService=${this.onQueueItemRemoved}
               .moveQueueItemNextService=${this.onQueueItemMoveNext}
