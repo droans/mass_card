@@ -47,6 +47,7 @@ class MediaRow extends LitElement {
         || oldItem.media_image !== this.item.media_image
         || oldItem.playing !== this.item.playing
         || oldItem.visibility !== this.item.visibility
+        || oldItem.show_move_up_next !== this.item.show_move_up_next
     }
     return true;
   }
@@ -61,11 +62,13 @@ class MediaRow extends LitElement {
           <ha-icon-button
             .path=${mdiArrowCollapseUp}
             class="action-button"
+            style="visibility: ${this.item.show_move_up_next}"
             @click=${this.callMoveItemNextService}
             >
           </ha-icon-button>
           <ha-icon-button
             .path=${mdiArrowUp}
+            style="visibility: ${this.item.show_move_up_next}"
             class="action-button"
             @click=${this.callMoveItemUpService}
             >

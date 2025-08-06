@@ -18,4 +18,5 @@ export type QueueItem = {
   media_image: string;
   visibility: string;
   card_media_title: string;
+  show_move_up_next: string;
 }
