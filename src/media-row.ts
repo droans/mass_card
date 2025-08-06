@@ -52,10 +52,11 @@ class MediaRow extends LitElement {
     return true;
   }
   render() {
+    const played = this.item.visibility == 'hidden' && !this.item.playing;
     return html`
       <mwc-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
-        <div class="row">
-          <div class="thumbnail" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: url(${this.item.media_image})"></div>
+        <div class="row${played ? '-disabled' : ''}">
+          <div class="thumbnail" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: ${played ? 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),' : ''} url(${this.item.media_image})"></div>
           <div class="title">${this.item.card_media_title}</div>
         </div>
         <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
@@ -108,6 +109,11 @@ class MediaRow extends LitElement {
           display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
+        .row-disabled {
+          --font-color: var(--disabled-text-color);
+          display: flex;
+          margin-right: calc(var(--icon-width) * 2 + 8px);
+        }
 
         .thumbnail {
           width: var(--icon-width);
@@ -138,6 +144,7 @@ class MediaRow extends LitElement {
           text-overflow: ellipsis;
           white-space: nowrap;
           min-width: 0;
+          color: var(--font-color);
         }
       `
     ]
