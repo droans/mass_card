@@ -52,6 +52,7 @@ export class MusicAssistantCard extends LitElement {
   private defaultLimitBefore: number = 5;
   private defaultLimitAfter: number = 100;
   private defaultShowAlbumCovers: boolean = true;
+  private defaultShowArtistNames: boolean = true;
   private services!: HassService;
   private _listening: boolean = false;
   private _unsubscribe: any;
@@ -94,7 +95,8 @@ export class MusicAssistantCard extends LitElement {
       title: this.defaultHeaderTitle,
       limit_before: this.defaultLimitBefore,
       limit_after: this.defaultLimitAfter,
-      show_album_covers: this.defaultShowAlbumCovers
+      show_album_covers: this.defaultShowAlbumCovers,
+      show_artist_names: this.defaultShowArtistNames
     }
     if (!config) {
       throw this.createError('Invalid configuration')
@@ -141,7 +143,7 @@ export class MusicAssistantCard extends LitElement {
       ...element,
       playing: index === activeIndex,
       visibility: index >= activeIndex ? 'visible' : 'hidden',
-      card_media_title: `${element.media_title} - ${element.media_artist}`
+      card_media_title: this.config.show_artist_names ? `${element.media_title} - ${element.media_artist}` : element.media_title
     }));
   }
 
