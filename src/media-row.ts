@@ -54,7 +54,7 @@ class MediaRow extends LitElement {
   render() {
     const played = this.item.visibility == 'hidden' && !this.item.playing;
     return html`
-      <mwc-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
+      <ha-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row${played ? '-disabled' : ''}">
           <div class="thumbnail" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: ${played ? 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),' : ''} url(${this.item.media_image})"></div>
           <div class="title">${this.item.card_media_title}</div>
@@ -88,7 +88,7 @@ class MediaRow extends LitElement {
           </ha-icon-button>
         <slot></slot>
         </div>
-      </mwc-list-item>
+      </ha-list-item>
     `;
   }
   static get styles() {
