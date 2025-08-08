@@ -1,6 +1,6 @@
 {
-  "name": "mass_card",
-  "description": "Custom Music Assistant Card for Home Assistant",
+  "name": "mass_queue_card",
+  "description": "Custom Music Assistant Queue Card for Home Assistant",
   "repository": "https://github.com/droans/mass_card",
   "author": "Michael Carroll",
   "version": "0.7.0",
