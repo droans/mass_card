@@ -53,6 +53,51 @@ class MediaRow extends LitElement {
   }
   render() {
     const played = this.item.visibility == 'hidden' && !this.item.playing;
+    /*
+      TODO:
+        List Item:
+          * Click Action
+          * Selected/Activated
+          * Text
+          * Thumbnail
+          * Action Buttons
+        Text:
+          * Disabled/Enabled
+        Thumbnail:
+          * Disabled/Enabled
+          * Visible/Hidden
+        Action Buttons:
+          * @click
+          * Icon
+          * Set visibility
+    */
+    return html`
+      <ha-md-list-item 
+        class="button${this.item.playing ? '-active' : ''}"
+		    @click=${this.callOnQueueItemSelectedService}
+        .type="button"
+      >
+        <img 
+          class="thumbnail${played ? '-disabled' : ''}"
+          slot="start"
+          ?hidden=${!this.item.media_image || !this.showAlbumCovers}
+          src="${this.item.media_image}"
+        >
+        </img>
+        <span 
+          slot="headline" 
+          class="title"
+        >
+          ${this.item.media_title}
+        </span>
+        <span 
+          slot="supporting-text" 
+          class="title"
+        >
+          ${this.item.media_artist}
+        </span>
+      </ha-md-list-item>
+    `
     return html`
       <ha-list-item 
         @click=${this.callOnQueueItemSelectedService} 
@@ -60,7 +105,7 @@ class MediaRow extends LitElement {
         ?selected=${this.selected} 
         ?activated=${this.selected} 
         class="button">
-        
+
         <div class="row${played ? '-disabled' : ''}">
 
           <div class="thumbnail${played ? '-disabled' : ''}" 
@@ -114,15 +159,28 @@ class MediaRow extends LitElement {
           height: var(--row-height);
           padding-inline-start: 0px;
           padding-inline-end: 8px;
+          --md-list-item-two-line-container-height: 48px;
+        }
+        .button-active {
+          margin: 0.3rem;
+          border-radius: 0.7rem;
+          background: var(--card-background-color);
+          --row-height: 48px;
+          --icon-width: var(--row-height);
+          height: var(--row-height);
+          padding-inline-start: 0px;
+          padding-inline-end: 8px;
+          color: var(--accent-color);
+          --md-list-item-two-line-container-height: 48px;
         }
 
         .row {
-          display: flex;
+          // display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
         .row-disabled {
           --font-color: var(--disabled-text-color);
-          display: flex;
+          // display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
 
@@ -157,11 +215,19 @@ class MediaRow extends LitElement {
           transform: scale(2);
           align-content: center;
         }
-
+        md-item {
+          min-height: auto;
+          max-height: 48px;
+        }
+        :host {
+          min-height: auto;
+        }
+        *[multiline] {
+          min-height: auto;
+        }
         .title {
           font-size: 1.1rem;
-          align-self: center;
-          flex: 1;
+          //flex: 1;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

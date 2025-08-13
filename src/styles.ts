@@ -52,7 +52,7 @@ export default css`
     scrollbar-width: none;
   }
   *[selected] {
-    color: var(--acent-color)
+    color: var(--accent-color)
   }
   *[hide] {
   display: none;

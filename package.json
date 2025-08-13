@@ -3,7 +3,7 @@
   "description": "Custom Music Assistant Queue Card for Home Assistant",
   "repository": "https://github.com/droans/mass_card",
   "author": "Michael Carroll",
-  "version": "0.8.0",
+  "version": "0.8.0-md",
   "module": "mass-card.js",
   "keywords": [
     "home-assistant",
