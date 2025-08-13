@@ -142,7 +142,7 @@ class MediaRow extends LitElement {
           height: var(--row-height);
         }
         .button-active {
-          margin: 0.3rem;
+          margin: 0.15rem;
           border-radius: 0.7rem;
           background-color: rgba(from var(--accent-color) r g b / 0.2);
           --row-height: 48px;
