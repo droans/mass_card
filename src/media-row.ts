@@ -163,8 +163,8 @@ class MediaRow extends LitElement {
         }
 
         .thumbnail {
-          width: var(--icon-width);
-          height: var(--icon-width);
+          width: var(--row-height);
+          height: var(--row-height);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
@@ -172,8 +172,8 @@ class MediaRow extends LitElement {
         }
         .thumbnail-disabled {
           filter: opacity(0.5);
-          width: var(--icon-width);
-          height: var(--icon-width);
+          width: var(--row-height);
+          height: var(--row-height);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
