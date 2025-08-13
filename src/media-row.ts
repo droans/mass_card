@@ -53,43 +53,79 @@ class MediaRow extends LitElement {
   }
   render() {
     const played = this.item.visibility == 'hidden' && !this.item.playing;
+    /*
+      TODO:
+        List Item:
+          * Click Action
+          * Selected/Activated
+          * Text
+          * Thumbnail
+          * Action Buttons
+        Text:
+          * Disabled/Enabled
+        Thumbnail:
+          * Disabled/Enabled
+          * Visible/Hidden
+        Action Buttons:
+          * @click
+          * Icon
+          * Set visibility
+    */
     return html`
-      <ha-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
-        <div class="row${played ? '-disabled' : ''}">
-          <div class="thumbnail${played ? '-disabled' : ''}" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: url(${this.item.media_image})"></div>
-          <div class="title">${this.item.card_media_title}</div>
-        </div>
-        <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
-          <ha-icon-button
+      <ha-md-list-item 
+        class="button${this.item.playing ? '-active' : ''}"
+		    @click=${this.callOnQueueItemSelectedService}
+        type="button"
+      >
+        <img 
+          class="thumbnail${played ? '-disabled' : ''}"
+          slot="start"
+          ?hidden=${!this.item.media_image || !this.showAlbumCovers}
+          src="${this.item.media_image}"
+        >
+        </img>
+        <span 
+          slot="headline" 
+          class="title"
+        >
+          ${this.item.media_title}
+        </span>
+        <span 
+          slot="supporting-text" 
+          class="title"
+        >
+          ${this.item.media_artist}
+        </span>
+        <span 
+          slot="end"
+          class="button-group"
+          style="visibility: ${this.item.visibility};"
+        >
+          <ha-icon-button class="action-button"
             .path=${mdiArrowCollapseUp}
-            class="action-button"
             style="visibility: ${this.item.show_move_up_next}"
-            @click=${this.callMoveItemNextService}
-            >
+            @click=${this.callMoveItemNextService}>
           </ha-icon-button>
-          <ha-icon-button
+
+          <ha-icon-button class="action-button"
             .path=${mdiArrowUp}
             style="visibility: ${this.item.show_move_up_next}"
-            class="action-button"
-            @click=${this.callMoveItemUpService}
-            >
+            @click=${this.callMoveItemUpService}>
           </ha-icon-button>
-          <ha-icon-button
+
+          <ha-icon-button class="action-button"
             .path=${mdiArrowDown}
-            class="action-button"
-            @click=${this.callMoveItemDownService}
-            >
+            @click=${this.callMoveItemDownService}>
           </ha-icon-button>
-          <ha-icon-button
+
+          <ha-icon-button class="action-button"
             .path=${mdiClose}
-            class="action-button"
-            @click=${this.callRemoveItemService}
-            >
+            @click=${this.callRemoveItemService}>
           </ha-icon-button>
-        <slot></slot>
-        </div>
-      </ha-list-item>
-    `;
+        </span>
+
+      </ha-md-list-item>
+    `
   }
   static get styles() {
     return [
@@ -98,39 +134,46 @@ class MediaRow extends LitElement {
           width: 100%;
         }
         .button {
-          margin: 0.3rem;
+          margin: 0.15rem;
           border-radius: 0.7rem;
           background: var(--card-background-color);
           --row-height: 48px;
-          --icon-width: var(--row-height);
+          --icon-width: 30px;
           height: var(--row-height);
+        }
+        .button-active {
+          margin: 0.15rem;
+          border-radius: 0.7rem;
+          background-color: rgba(from var(--accent-color) r g b / 0.2);
+          --row-height: 48px;
+          --icon-width: 30px;
+          height: var(--row-height);
+          --font-color: var(--mdc-theme-primary);
           padding-inline-start: 0px;
           padding-inline-end: 8px;
+          color: var(--accent-color);
         }
 
         .row {
-          display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
         .row-disabled {
           --font-color: var(--disabled-text-color);
-          display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
 
         .thumbnail {
-          width: var(--icon-width);
-          height: var(--icon-width);
+          width: var(--row-height);
+          height: var(--row-height);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          margin-right: 12px;
           border-radius: 0.7rem;
         }
         .thumbnail-disabled {
           filter: opacity(0.5);
-          width: var(--icon-width);
-          height: var(--icon-width);
+          width: var(--row-height);
+          height: var(--row-height);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
@@ -142,18 +185,14 @@ class MediaRow extends LitElement {
           flex-direction: row;
           align-items: center;
           justify-content: flex-end;
-          gap: 8px;
         }
         .action-button {
           width: var(--icon-width);
-          transform: scale(2);
+          transform: scale(1);
           align-content: center;
         }
-
         .title {
           font-size: 1.1rem;
-          align-self: center;
-          flex: 1;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

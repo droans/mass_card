@@ -12,7 +12,14 @@ export default css`
   }
   .mass-panel {
     --expansion-panel-content-padding: 0px;
+    --md-list-container-color: rgba(0,0,0,0) !important;
+    --md-list-item-leading-space: 0px;
+    --md-list-item-two-line-container-height: 48px;
   }
+    --md-ripple-hover-color: var(--mdc-theme-primary);
+    --mdc-ripple-hover-color: var(--mdc-theme-primary);
+    --mdc-ripple-color: var(--mdc-theme-primary);
+    --md-ripple-color: var(--mdc-theme-primary);
   .main {
     display: flex;
     height: 100%;
@@ -52,7 +59,7 @@ export default css`
     scrollbar-width: none;
   }
   *[selected] {
-    color: var(--acent-color)
+    color: var(--accent-color)
   }
   *[hide] {
   display: none;
