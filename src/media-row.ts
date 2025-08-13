@@ -143,7 +143,7 @@ class MediaRow extends LitElement {
         }
         .action-button {
           width: var(--icon-width);
-          transform: scale(1.5);
+          transform: scale(2);
           align-content: center;
         }
 
