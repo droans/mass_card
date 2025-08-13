@@ -10,6 +10,9 @@ export default css`
     display: flex;
     justify-content: center;
   }
+  .mass-panel {
+    --expansion-panel-content-padding: 0px;
+  }
   .main {
     display: flex;
     height: 100%;

@@ -56,7 +56,7 @@ class MediaRow extends LitElement {
     return html`
       <ha-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row${played ? '-disabled' : ''}">
-          <div class="thumbnail" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: ${played ? 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),' : ''} url(${this.item.media_image})"></div>
+          <div class="thumbnail${played ? '-disabled' : ''}" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${this.item.card_media_title}</div>
         </div>
         <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
@@ -101,8 +101,11 @@ class MediaRow extends LitElement {
           margin: 0.3rem;
           border-radius: 0.7rem;
           background: var(--card-background-color);
-          --icon-width: 35px;
-          height: 40px;
+          --row-height: 48px;
+          --icon-width: var(--row-height);
+          height: var(--row-height);
+          padding-inline-start: 0px;
+          padding-inline-end: 8px;
         }
 
         .row {
@@ -121,18 +124,29 @@ class MediaRow extends LitElement {
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          padding-left: 12px;
+          margin-right: 12px;
+          border-radius: 0.7rem;
+        }
+        .thumbnail-disabled {
+          filter: opacity(0.5);
+          width: var(--icon-width);
+          height: var(--icon-width);
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: left;
+          margin-right: 12px;
+          border-radius: 8px;
         }
         .button-group {
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: flex-end;
-          gap: 4px;
+          gap: 8px;
         }
         .action-button {
           width: var(--icon-width);
-          transform: scale(1.5);
+          transform: scale(2);
           align-content: center;
         }
 
