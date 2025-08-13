@@ -75,7 +75,7 @@ class MediaRow extends LitElement {
       <ha-md-list-item 
         class="button${this.item.playing ? '-active' : ''}"
 		    @click=${this.callOnQueueItemSelectedService}
-        .type="button"
+        type="button"
       >
         <img 
           class="thumbnail${played ? '-disabled' : ''}"
