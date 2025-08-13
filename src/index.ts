@@ -248,6 +248,7 @@ export class MusicAssistantCard extends LitElement {
   protected render() {
     return html`
       <ha-expansion-panel
+        class="mass-panel"
         header=${this.config.title}
         .expanded=${this.config.expanded}
       >
