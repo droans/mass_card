@@ -12,6 +12,7 @@ export default css`
   }
   .mass-panel {
     --expansion-panel-content-padding: 0px;
+    --md-list-item-two-line-container-height: 48px;
   }
   .main {
     display: flex;

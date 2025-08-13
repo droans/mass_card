@@ -142,7 +142,6 @@ class MediaRow extends LitElement {
           height: var(--row-height);
           padding-inline-start: 0px;
           padding-inline-end: 8px;
-          --md-list-item-two-line-container-height: 48px;
         }
         .button-active {
           margin: 0.3rem;
@@ -154,7 +153,6 @@ class MediaRow extends LitElement {
           padding-inline-start: 0px;
           padding-inline-end: 8px;
           color: var(--accent-color);
-          --md-list-item-two-line-container-height: 48px;
         }
 
         .row {
