@@ -124,6 +124,7 @@ class MediaRow extends LitElement {
           background-repeat: no-repeat;
           background-position: left;
           margin-right: 12px;
+          border-radius: 0.7rem;
         }
         .thumbnail-disabled {
           filter: opacity(0.5);
@@ -133,6 +134,7 @@ class MediaRow extends LitElement {
           background-repeat: no-repeat;
           background-position: left;
           margin-right: 12px;
+          border-radius: 8px;
         }
         .button-group {
           display: flex;
