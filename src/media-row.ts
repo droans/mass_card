@@ -56,7 +56,7 @@ class MediaRow extends LitElement {
     return html`
       <ha-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
         <div class="row${played ? '-disabled' : ''}">
-          <div class="thumbnail" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: ${played ? 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),' : ''} url(${this.item.media_image})"></div>
+          <div class="thumbnail${played ? '-disabled' : ''}" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${this.item.card_media_title}</div>
         </div>
         <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
@@ -118,6 +118,15 @@ class MediaRow extends LitElement {
         }
 
         .thumbnail {
+          width: 40px;
+          height: 40px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: left;
+          margin-right: 12px;
+        }
+        .thumbnail-disabled {
+          filter: opacity(0.5);
           width: 40px;
           height: 40px;
           background-size: contain;
