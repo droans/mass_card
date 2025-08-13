@@ -138,7 +138,7 @@ class MediaRow extends LitElement {
           border-radius: 0.7rem;
           background: var(--card-background-color);
           --row-height: 48px;
-          --icon-width: var(--row-height);
+          --icon-width: 30px;
           height: var(--row-height);
         }
         .button-active {
@@ -146,7 +146,7 @@ class MediaRow extends LitElement {
           border-radius: 0.7rem;
           background-color: rgba(from var(--accent-color) r g b / 0.2);
           --row-height: 48px;
-          --icon-width: var(--row-height);
+          --icon-width: 30px;
           height: var(--row-height);
           --font-color: var(--mdc-theme-primary);
           padding-inline-start: 0px;
