@@ -53,24 +53,6 @@ class MediaRow extends LitElement {
   }
   render() {
     const played = this.item.visibility == 'hidden' && !this.item.playing;
-    /*
-      TODO:
-        List Item:
-          * Click Action
-          * Selected/Activated
-          * Text
-          * Thumbnail
-          * Action Buttons
-        Text:
-          * Disabled/Enabled
-        Thumbnail:
-          * Disabled/Enabled
-          * Visible/Hidden
-        Action Buttons:
-          * @click
-          * Icon
-          * Set visibility
-    */
     return html`
       <ha-md-list-item 
         class="button${this.item.playing ? '-active' : ''}"
