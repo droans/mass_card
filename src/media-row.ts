@@ -59,30 +59,26 @@ class MediaRow extends LitElement {
           <div class="thumbnail${played ? '-disabled' : ''}" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: url(${this.item.media_image})"></div>
           <div class="title">${this.item.card_media_title}</div>
         </div>
-        <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
-          <ha-icon-button
+        <div class="button-group" slot="meta" style="visibility: ${this.item.visibility};">
+          <ha-icon-button class="action-button"
             .path=${mdiArrowCollapseUp}
-            class="action-button"
             style="visibility: ${this.item.show_move_up_next}"
             @click=${this.callMoveItemNextService}
             >
           </ha-icon-button>
-          <ha-icon-button
+          <ha-icon-button class="action-button"
             .path=${mdiArrowUp}
             style="visibility: ${this.item.show_move_up_next}"
-            class="action-button"
             @click=${this.callMoveItemUpService}
             >
           </ha-icon-button>
-          <ha-icon-button
+          <ha-icon-button class="action-button"
             .path=${mdiArrowDown}
-            class="action-button"
             @click=${this.callMoveItemDownService}
             >
           </ha-icon-button>
-          <ha-icon-button
+          <ha-icon-button class="action-button"
             .path=${mdiClose}
-            class="action-button"
             @click=${this.callRemoveItemService}
             >
           </ha-icon-button>
