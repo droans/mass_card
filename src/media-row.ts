@@ -102,7 +102,7 @@ class MediaRow extends LitElement {
           border-radius: 0.7rem;
           background: var(--card-background-color);
           --row-height: 40px;
-          --icon-width: 35px;
+          --icon-width: var(--row-height);
           height: var(--row-height);
           padding-inline-start: 0px;
           padding-inline-end: 8px;
@@ -119,8 +119,8 @@ class MediaRow extends LitElement {
         }
 
         .thumbnail {
-          width: var(--row-height);
-          height: var(--row-height);
+          width: var(--icon-width);
+          height: var(--icon-width);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
@@ -129,8 +129,8 @@ class MediaRow extends LitElement {
         }
         .thumbnail-disabled {
           filter: opacity(0.5);
-          width: var(--row-height);
-          height: var(--row-height);
+          width: var(--icon-width);
+          height: var(--icon-width);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
