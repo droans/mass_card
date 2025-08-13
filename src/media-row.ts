@@ -148,6 +148,7 @@ class MediaRow extends LitElement {
           --row-height: 48px;
           --icon-width: var(--row-height);
           height: var(--row-height);
+          --font-color: var(--mdc-theme-primary);
           padding-inline-start: 0px;
           padding-inline-end: 8px;
           color: var(--accent-color);
