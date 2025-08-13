@@ -140,8 +140,6 @@ class MediaRow extends LitElement {
           --row-height: 48px;
           --icon-width: var(--row-height);
           height: var(--row-height);
-          padding-inline-start: 0px;
-          padding-inline-end: 8px;
         }
         .button-active {
           margin: 0.3rem;
@@ -156,12 +154,10 @@ class MediaRow extends LitElement {
         }
 
         .row {
-          // display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
         .row-disabled {
           --font-color: var(--disabled-text-color);
-          // display: flex;
           margin-right: calc(var(--icon-width) * 2 + 8px);
         }
 
@@ -171,7 +167,6 @@ class MediaRow extends LitElement {
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          margin-right: 12px;
           border-radius: 0.7rem;
         }
         .thumbnail-disabled {
@@ -196,19 +191,8 @@ class MediaRow extends LitElement {
           transform: scale(2);
           align-content: center;
         }
-        md-item {
-          min-height: auto;
-          max-height: 48px;
-        }
-        :host {
-          min-height: auto;
-        }
-        *[multiline] {
-          min-height: auto;
-        }
         .title {
           font-size: 1.1rem;
-          //flex: 1;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
