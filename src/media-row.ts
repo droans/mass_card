@@ -142,7 +142,7 @@ class MediaRow extends LitElement {
           flex-direction: row;
           align-items: center;
           justify-content: flex-end;
-          gap: 4px;
+          gap: 8px;
         }
         .action-button {
           width: var(--icon-width);
