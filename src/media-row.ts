@@ -121,7 +121,7 @@ class MediaRow extends LitElement {
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          padding-left: 12px;
+          margin-right: 12px;
         }
         .button-group {
           display: flex;
