@@ -96,28 +96,11 @@ class MediaRow extends LitElement {
         >
           ${this.item.media_artist}
         </span>
-      </ha-md-list-item>
-    `
-    return html`
-      <ha-list-item 
-        @click=${this.callOnQueueItemSelectedService} 
-        hasMeta 
-        ?selected=${this.selected} 
-        ?activated=${this.selected} 
-        class="button">
-
-        <div class="row${played ? '-disabled' : ''}">
-
-          <div class="thumbnail${played ? '-disabled' : ''}" 
-            ?hidden=${!this.item.media_image || !this.showAlbumCovers} 
-            style="background-image: url(${this.item.media_image})">
-          </div>
-
-          <div class="title">${this.item.card_media_title}</div>
-        </div>
-        <div class="button-group" 
-          slot="meta" 
-          style="visibility: ${this.item.visibility};">
+        <span 
+          slot="end"
+          class="button-group"
+          style="visibility: ${this.item.visibility};"
+        >
           <ha-icon-button class="action-button"
             .path=${mdiArrowCollapseUp}
             style="visibility: ${this.item.show_move_up_next}"
@@ -139,10 +122,10 @@ class MediaRow extends LitElement {
             .path=${mdiClose}
             @click=${this.callRemoveItemService}>
           </ha-icon-button>
-        <slot></slot>
-        </div>
-      </ha-list-item>
-    `;
+        </span>
+
+      </ha-md-list-item>
+    `
   }
   static get styles() {
     return [
