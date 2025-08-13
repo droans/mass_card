@@ -101,7 +101,7 @@ class MediaRow extends LitElement {
           margin: 0.3rem;
           border-radius: 0.7rem;
           background: var(--card-background-color);
-          --row-height: 40px;
+          --row-height: 48px;
           --icon-width: var(--row-height);
           height: var(--row-height);
           padding-inline-start: 0px;
