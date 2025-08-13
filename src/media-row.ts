@@ -116,8 +116,8 @@ class MediaRow extends LitElement {
         }
 
         .thumbnail {
-          width: var(--icon-width);
-          height: var(--icon-width);
+          width: 40px;
+          height: 40px;
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
