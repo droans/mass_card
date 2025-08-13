@@ -54,33 +54,45 @@ class MediaRow extends LitElement {
   render() {
     const played = this.item.visibility == 'hidden' && !this.item.playing;
     return html`
-      <ha-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
+      <ha-list-item 
+        @click=${this.callOnQueueItemSelectedService} 
+        hasMeta 
+        ?selected=${this.selected} 
+        ?activated=${this.selected} 
+        class="button">
+        
         <div class="row${played ? '-disabled' : ''}">
-          <div class="thumbnail${played ? '-disabled' : ''}" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: url(${this.item.media_image})"></div>
+
+          <div class="thumbnail${played ? '-disabled' : ''}" 
+            ?hidden=${!this.item.media_image || !this.showAlbumCovers} 
+            style="background-image: url(${this.item.media_image})">
+          </div>
+
           <div class="title">${this.item.card_media_title}</div>
         </div>
-        <div class="button-group" slot="meta" style="visibility: ${this.item.visibility};">
+        <div class="button-group" 
+          slot="meta" 
+          style="visibility: ${this.item.visibility};">
           <ha-icon-button class="action-button"
             .path=${mdiArrowCollapseUp}
             style="visibility: ${this.item.show_move_up_next}"
-            @click=${this.callMoveItemNextService}
-            >
+            @click=${this.callMoveItemNextService}>
           </ha-icon-button>
+
           <ha-icon-button class="action-button"
             .path=${mdiArrowUp}
             style="visibility: ${this.item.show_move_up_next}"
-            @click=${this.callMoveItemUpService}
-            >
+            @click=${this.callMoveItemUpService}>
           </ha-icon-button>
+
           <ha-icon-button class="action-button"
             .path=${mdiArrowDown}
-            @click=${this.callMoveItemDownService}
-            >
+            @click=${this.callMoveItemDownService}>
           </ha-icon-button>
+
           <ha-icon-button class="action-button"
             .path=${mdiClose}
-            @click=${this.callRemoveItemService}
-            >
+            @click=${this.callRemoveItemService}>
           </ha-icon-button>
         <slot></slot>
         </div>
