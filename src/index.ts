@@ -229,7 +229,7 @@ export class MusicAssistantCard extends LitElement {
           item.queue_item_id, 
           html`
             <mass-media-row
-              .item=${item}
+              .media_item=${item}
               .selected=${item.playing}
               .showAlbumCovers=${show_album_covers}
               .showMoveUpNext=${item.show_move_up_next}

@@ -9,7 +9,7 @@ import {
 import { QueueItem } from './types';
 
 class MediaRow extends LitElement {
-  @property({ attribute: false }) item!: QueueItem;
+  @property({ attribute: false }) media_item!: QueueItem;
   @property({ type: Boolean }) selected = false;
   public removeService;
   public moveQueueItemNextService;
@@ -20,22 +20,22 @@ class MediaRow extends LitElement {
   
   private callMoveItemUpService(e) {
     e.stopPropagation();
-    this.moveQueueItemUpService(this.item.queue_item_id);
+    this.moveQueueItemUpService(this.media_item.queue_item_id);
   }
   private callMoveItemDownService(e) {
     e.stopPropagation();
-    this.moveQueueItemDownService(this.item.queue_item_id);
+    this.moveQueueItemDownService(this.media_item.queue_item_id);
   }
   private callMoveItemNextService(e) {
     e.stopPropagation();
-    this.moveQueueItemNextService(this.item.queue_item_id);
+    this.moveQueueItemNextService(this.media_item.queue_item_id);
   }
   private callRemoveItemService(e) {
     e.stopPropagation();
-    this.removeService(this.item.queue_item_id);
+    this.removeService(this.media_item.queue_item_id);
   }
   private callOnQueueItemSelectedService() {
-    this.selectedService(this.item.queue_item_id, this.item.media_content_id);
+    this.selectedService(this.media_item.queue_item_id, this.media_item.media_content_id);
   }
   protected shouldUpdate(_changedProperties): boolean {
     if (_changedProperties.has('selected')) {
@@ -43,55 +43,55 @@ class MediaRow extends LitElement {
     }
     if (_changedProperties.has('item')) {
       const oldItem = _changedProperties.get('item');
-      return oldItem.card_media_title !== this.item.card_media_title 
-        || oldItem.media_image !== this.item.media_image
-        || oldItem.playing !== this.item.playing
-        || oldItem.visibility !== this.item.visibility
-        || oldItem.show_move_up_next !== this.item.show_move_up_next
+      return oldItem.card_media_title !== this.media_item.card_media_title 
+        || oldItem.media_image !== this.media_item.media_image
+        || oldItem.playing !== this.media_item.playing
+        || oldItem.visibility !== this.media_item.visibility
+        || oldItem.show_move_up_next !== this.media_item.show_move_up_next
     }
     return true;
   }
   render() {
-    const played = this.item.visibility == 'hidden' && !this.item.playing;
+    const played = this.media_item.visibility == 'hidden' && !this.media_item.playing;
     return html`
       <ha-md-list-item 
-        class="button${this.item.playing ? '-active' : ''}"
+        class="button${this.media_item.playing ? '-active' : ''}"
 		    @click=${this.callOnQueueItemSelectedService}
         type="button"
       >
         <img 
           class="thumbnail${played ? '-disabled' : ''}"
           slot="start"
-          ?hidden=${!this.item.media_image || !this.showAlbumCovers}
-          src="${this.item.media_image}"
+          ?hidden=${!this.media_item.media_image || !this.showAlbumCovers}
+          src="${this.media_item.media_image}"
         >
         </img>
         <span 
           slot="headline" 
           class="title"
         >
-          ${this.item.media_title}
+          ${this.media_item.media_title}
         </span>
         <span 
           slot="supporting-text" 
           class="title"
         >
-          ${this.item.media_artist}
+          ${this.media_item.media_artist}
         </span>
         <span 
           slot="end"
           class="button-group"
-          style="visibility: ${this.item.visibility};"
+          style="visibility: ${this.media_item.visibility};"
         >
           <ha-icon-button class="action-button"
             .path=${mdiArrowCollapseUp}
-            style="visibility: ${this.item.show_move_up_next}"
+            style="visibility: ${this.media_item.show_move_up_next}"
             @click=${this.callMoveItemNextService}>
           </ha-icon-button>
 
           <ha-icon-button class="action-button"
             .path=${mdiArrowUp}
-            style="visibility: ${this.item.show_move_up_next}"
+            style="visibility: ${this.media_item.show_move_up_next}"
             @click=${this.callMoveItemUpService}>
           </ha-icon-button>
 
