@@ -42,6 +42,7 @@ class MediaRow extends LitElement {
       return true;
     }
     if (_changedProperties.has('item')) {
+      const oldItem: QueueItem = _changedProperties.get('item');
       return oldItem.media_title !== this.media_item.media_title
         || oldItem.media_artist !== this.media_item.media_artist
         || oldItem.media_image !== this.media_item.media_image
