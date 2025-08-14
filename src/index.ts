@@ -8,6 +8,7 @@ import {
 import { QueueItem, Config } from './types'
 import HassService from './services'
 import styles from './styles';
+import { DEFAULT_CONFIG } from './const'
 import './media-row'
 import { version } from '../package.json';
 
@@ -47,12 +48,6 @@ export class MusicAssistantCard extends LitElement {
   @state() private error?: TemplateResult;
 
   private newId: string = '';
-  private defaultHeaderTitle: string = "Player Queue";
-  private defaultExpand: boolean = false;
-  private defaultLimitBefore: number = 5;
-  private defaultLimitAfter: number = 100;
-  private defaultShowAlbumCovers: boolean = true;
-  private defaultShowArtistNames: boolean = true;
   private defaultAllowCollapse: boolean = true;
   private services!: HassService;
   private _listening: boolean = false;
@@ -91,15 +86,6 @@ export class MusicAssistantCard extends LitElement {
   }
 
   public setConfig(config?: Config) {
-    const default_config: any = {
-      expanded: this.defaultExpand,
-      title: this.defaultHeaderTitle,
-      limit_before: this.defaultLimitBefore,
-      limit_after: this.defaultLimitAfter,
-      show_album_covers: this.defaultShowAlbumCovers,
-      show_artist_names: this.defaultShowArtistNames,
-      allow_collapsing: this.defaultAllowCollapse,
-    }
     if (!config) {
       throw this.createError('Invalid configuration')
     }
@@ -107,7 +93,7 @@ export class MusicAssistantCard extends LitElement {
       throw this.createError('You need to define entitiy.');
     };
     this.config = {
-      ...default_config,
+      ...DEFAULT_CONFIG,
       ...config
     }
   }
