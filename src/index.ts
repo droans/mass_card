@@ -53,6 +53,7 @@ export class MusicAssistantCard extends LitElement {
   private defaultLimitAfter: number = 100;
   private defaultShowAlbumCovers: boolean = true;
   private defaultShowArtistNames: boolean = true;
+  private defaultAllowCollapse: boolean = true;
   private services!: HassService;
   private _listening: boolean = false;
   private _unsubscribe: any;
@@ -96,7 +97,8 @@ export class MusicAssistantCard extends LitElement {
       limit_before: this.defaultLimitBefore,
       limit_after: this.defaultLimitAfter,
       show_album_covers: this.defaultShowAlbumCovers,
-      show_artist_names: this.defaultShowArtistNames
+      show_artist_names: this.defaultShowArtistNames,
+      allow_collapsing: this.defaultAllowCollapse,
     }
     if (!config) {
       throw this.createError('Invalid configuration')
@@ -251,7 +253,8 @@ export class MusicAssistantCard extends LitElement {
       <ha-expansion-panel
         class="mass-panel"
         header=${this.config.title}
-        .expanded=${this.config.expanded}
+        .expanded=${this.config.expanded || !this.config.allow_collapsing}
+        no-collapse=${!this.config.allow_collapsing}
       >
         <ha-md-list class="list">
           ${this.renderQueueItems()}

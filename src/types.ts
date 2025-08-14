@@ -6,6 +6,7 @@ export type Config = {
   limit_after: number;
   show_album_covers: boolean;
   show_artist_names: boolean;
+  allow_collapsing: boolean;
 }
 
 export type QueueItem = {
