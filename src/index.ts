@@ -240,7 +240,7 @@ export class MusicAssistantCard extends LitElement {
         class="mass-panel"
         header=${this.config.title}
         .expanded=${this.config.expanded || !this.config.allow_collapsing}
-        no-collapse=${!this.config.allow_collapsing}
+        ${this.config.allow_collapsing ? '': 'no-collapse'}
       >
         <ha-md-list class="list">
           ${this.renderQueueItems()}
