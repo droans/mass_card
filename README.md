@@ -8,7 +8,9 @@
 
 Display the queue for any given media player.
 
-**Important: This card requires the custom integration [`mass_queue`](https://github.com/droans/mass_queue) to function. This integration must be installed before continuing!**
+### Important: This card requires the custom integration [Music Assistant Queue Actions](https://github.com/droans/mass_queue) to function. This integration must be installed before continuing!
+
+## Install with HACS:
 
 [![My Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=mass_card&owner=droans&category=Plugin)
 
