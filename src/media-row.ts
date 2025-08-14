@@ -160,9 +160,6 @@ class MediaRow extends LitElement {
   static get styles() {
     return [
       css`
-        .mdc-deprecated-list-item__text {
-          width: 100%;
-        }
         .button {
           margin: 0.15rem;
           border-radius: 0.7rem;
@@ -183,15 +180,6 @@ class MediaRow extends LitElement {
           padding-inline-end: 8px;
           color: var(--accent-color);
         }
-
-        .row {
-          margin-right: calc(var(--icon-width) * 2 + 8px);
-        }
-        .row-disabled {
-          --font-color: var(--disabled-text-color);
-          margin-right: calc(var(--icon-width) * 2 + 8px);
-        }
-
         .thumbnail {
           width: var(--row-height);
           height: var(--row-height);
@@ -207,7 +195,6 @@ class MediaRow extends LitElement {
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          margin-right: 12px;
           border-radius: 8px;
         }
         .button-group {
