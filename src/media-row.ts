@@ -51,6 +51,67 @@ class MediaRow extends LitElement {
     }
     return true;
   }
+  private RenderActionButtons() {
+    if (this.media_item.visibility == 'visible') {
+      return html`
+        <span 
+          slot="end"
+          class="button-group"
+          style="visibility: ${this.media_item.visibility};"
+        >
+          ${this.RenderMoveNextButton()}
+          ${this.RenderMoveUpButton()}
+          ${this.RenderMoveDownButton()}
+          ${this.RenderRemoveButton()}
+        </span>
+      `;
+    }
+    return html``
+  }
+  private RenderMoveNextButton() {
+    if (this.media_item.show_move_up_next) {
+      return html`
+        <ha-icon-button 
+          class="action-button"
+          .path=${mdiArrowCollapseUp}
+          style="visibility: ${this.media_item.show_move_up_next}"
+          @click=${this.callMoveItemNextService}>
+        </ha-icon-button>
+      `
+    }
+    return html``
+  }
+  private RenderMoveUpButton() {
+    if (this.media_item.show_move_up_next) {
+      return html`
+        <ha-icon-button 
+          class="action-button"
+          .path=${mdiArrowUp}
+          style="visibility: ${this.media_item.show_move_up_next}"
+          @click=${this.callMoveItemUpService}>
+        </ha-icon-button>
+      `
+    }
+    return html``
+  }
+  private RenderMoveDownButton() {
+    return html`
+      <ha-icon-button 
+        class="action-button"
+        .path=${mdiArrowDown}
+        @click=${this.callMoveItemDownService}>
+      </ha-icon-button>
+    `    
+  }
+  private RenderRemoveButton() {
+    return html`
+      <ha-icon-button 
+        class="action-button"
+        .path=${mdiClose}
+        @click=${this.callRemoveItemService}>
+      </ha-icon-button>
+    `
+  }
   render() {
     const played = this.media_item.visibility == 'hidden' && !this.media_item.playing;
     return html`
@@ -78,33 +139,7 @@ class MediaRow extends LitElement {
         >
           ${this.media_item.media_artist}
         </span>
-        <span 
-          slot="end"
-          class="button-group"
-          style="visibility: ${this.media_item.visibility};"
-        >
-          <ha-icon-button class="action-button"
-            .path=${mdiArrowCollapseUp}
-            style="visibility: ${this.media_item.show_move_up_next}"
-            @click=${this.callMoveItemNextService}>
-          </ha-icon-button>
-
-          <ha-icon-button class="action-button"
-            .path=${mdiArrowUp}
-            style="visibility: ${this.media_item.show_move_up_next}"
-            @click=${this.callMoveItemUpService}>
-          </ha-icon-button>
-
-          <ha-icon-button class="action-button"
-            .path=${mdiArrowDown}
-            @click=${this.callMoveItemDownService}>
-          </ha-icon-button>
-
-          <ha-icon-button class="action-button"
-            .path=${mdiClose}
-            @click=${this.callRemoveItemService}>
-          </ha-icon-button>
-        </span>
+        ${this.RenderActionButtons()}
 
       </ha-md-list-item>
     `
