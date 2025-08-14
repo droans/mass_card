@@ -253,7 +253,7 @@ export class MusicAssistantCard extends LitElement {
         header=${this.config.title}
         .expanded=${this.config.expanded}
       >
-        <ha-md-list>
+        <ha-md-list class="list">
           ${this.renderQueueItems()}
         </ha-md-list>
       </ha-expansion-panel>
