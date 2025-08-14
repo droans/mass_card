@@ -53,8 +53,6 @@ export default css`
   .list {
     height: 400px;
     overflow-y: scroll;
-    --mdc-icon-button-size: 1.5rem;
-    --mdc-icon-size: 1rem;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
