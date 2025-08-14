@@ -236,16 +236,18 @@ export class MusicAssistantCard extends LitElement {
 
   protected render() {
     return html`
-      <ha-expansion-panel
-        class="mass-panel"
-        header=${this.config.title}
-        .expanded=${this.config.expanded || !this.config.allow_collapsing}
-        ${this.config.allow_collapsing ? '': 'no-collapse'}
-      >
-        <ha-md-list class="list">
-          ${this.renderQueueItems()}
-        </ha-md-list>
-      </ha-expansion-panel>
+      <ha-card>
+        <ha-expansion-panel
+          class="mass-panel"
+          header=${this.config.title}
+          .expanded=${this.config.expanded || !this.config.allow_collapsing}
+          ${this.config.allow_collapsing ? '': 'no-collapse'}
+        >
+          <ha-md-list class="list">
+            ${this.renderQueueItems()}
+          </ha-md-list>
+        </ha-expansion-panel>
+      </ha-card>
     `
   }
   static get styles(): CSSResultGroup {

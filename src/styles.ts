@@ -7,8 +7,9 @@ export default css`
     overflow: hidden;
     width: 100%;
     height: 100%;
-    display: flex;
     justify-content: center;
+    background: unset;
+    box-shadow: unset;
   }
   .mass-panel {
     --expansion-panel-content-padding: 0px;
