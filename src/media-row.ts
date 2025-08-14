@@ -75,6 +75,16 @@ class MediaRow extends LitElement {
       </span>
     `
   }
+  private renderArtist() {
+    return html`
+      <span 
+        slot="supporting-text" 
+        class="title"
+      >
+        ${this.media_item.media_artist}
+      </span>
+    `
+  }
   private RenderActionButtons() {
     if (this.media_item.visibility == 'visible') {
       return html`
@@ -146,12 +156,7 @@ class MediaRow extends LitElement {
       >
         ${this.renderThumbnail()}
         ${this.renderTitle()}
-        <span 
-          slot="supporting-text" 
-          class="title"
-        >
-          ${this.media_item.media_artist}
-        </span>
+        ${this.renderArtist()}
         ${this.RenderActionButtons()}
 
       </ha-md-list-item>
