@@ -65,6 +65,16 @@ class MediaRow extends LitElement {
     }
     return html``
   }
+  private renderTitle() {
+    return html`
+      <span 
+        slot="headline" 
+        class="title"
+      >
+        ${this.media_item.media_title}
+      </span>
+    `
+  }
   private RenderActionButtons() {
     if (this.media_item.visibility == 'visible') {
       return html`
@@ -135,12 +145,7 @@ class MediaRow extends LitElement {
         type="button"
       >
         ${this.renderThumbnail()}
-        <span 
-          slot="headline" 
-          class="title"
-        >
-          ${this.media_item.media_title}
-        </span>
+        ${this.renderTitle()}
         <span 
           slot="supporting-text" 
           class="title"
