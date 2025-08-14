@@ -18,5 +18,5 @@ export type QueueItem = {
   media_image: string;
   show_action_buttons: boolean;
   card_media_title: string;
-  show_move_up_next: string;
+  show_move_up_next: boolean;
 }

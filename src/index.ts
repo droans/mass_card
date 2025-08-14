@@ -143,7 +143,7 @@ export class MusicAssistantCard extends LitElement {
       ...element,
       playing: index === activeIndex,
       show_action_buttons: index > activeIndex,
-      show_move_up_next: index > activeIndex + 1 ? 'visible' : 'hidden',
+      show_move_up_next: index > activeIndex + 1,
       card_media_title: this.config.show_artist_names ? `${element.media_title} - ${element.media_artist}` : element.media_title
     }));
   }
