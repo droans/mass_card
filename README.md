@@ -58,3 +58,4 @@ expanded: false
 | limit_after       | int  | No       | 100          | Number of item to display after current active item                             |
 | show_album_covers | bool | No       | true         | Show album cover images for each item                                           |
 | show_artist_names | bool | No       | true         | Show artist names for each item                                                 |
+| allow_collapsing  | bool | No       | true         | Allow card to collapse when true, show full card (max 400px tall) if false      |
