@@ -144,7 +144,6 @@ class MediaRow extends LitElement {
     `
   }
   render() {
-    const played = this.media_item.visibility == 'hidden' && !this.media_item.playing;
     return html`
       <ha-md-list-item 
         class="button${this.media_item.playing ? '-active' : ''}"
