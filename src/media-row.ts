@@ -51,6 +51,20 @@ class MediaRow extends LitElement {
     }
     return true;
   }
+  private renderThumbnail() {
+    const played = this.media_item.visibility == 'hidden' && !this.media_item.playing;
+    if (this.media_item.media_image && this.showAlbumCovers) {
+      return html`
+        <img 
+          class="thumbnail${played ? '-disabled' : ''}"
+          slot="start"
+          src="${this.media_item.media_image}"
+        >
+        </img>
+      `
+    }
+    return html``
+  }
   private RenderActionButtons() {
     if (this.media_item.visibility == 'visible') {
       return html`
@@ -120,13 +134,7 @@ class MediaRow extends LitElement {
 		    @click=${this.callOnQueueItemSelectedService}
         type="button"
       >
-        <img 
-          class="thumbnail${played ? '-disabled' : ''}"
-          slot="start"
-          ?hidden=${!this.media_item.media_image || !this.showAlbumCovers}
-          src="${this.media_item.media_image}"
-        >
-        </img>
+        ${this.renderThumbnail()}
         <span 
           slot="headline" 
           class="title"
