@@ -195,7 +195,7 @@ class MediaRow extends LitElement {
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          border-radius: 8px;
+          border-radius: 0.7rem;
         }
         .button-group {
           display: flex;
