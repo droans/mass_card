@@ -144,6 +144,7 @@ export class MusicAssistantCard extends LitElement {
       playing: index === activeIndex,
       show_action_buttons: index > activeIndex,
       show_move_up_next: index > activeIndex + 1,
+      show_artist_name: this.config.show_artist_names
       card_media_title: this.config.show_artist_names ? `${element.media_title} - ${element.media_artist}` : element.media_title
     }));
   }
@@ -233,6 +234,7 @@ export class MusicAssistantCard extends LitElement {
               .selected=${item.playing}
               .showAlbumCovers=${show_album_covers}
               .showMoveUpNext=${item.show_move_up_next}
+              .showArtistName=${item.show_artist_name}
               .selectedService=${this.onQueueItemSelected}
               .removeService=${this.onQueueItemRemoved}
               .moveQueueItemNextService=${this.onQueueItemMoveNext}

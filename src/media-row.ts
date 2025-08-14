@@ -42,8 +42,8 @@ class MediaRow extends LitElement {
       return true;
     }
     if (_changedProperties.has('item')) {
-      const oldItem = _changedProperties.get('item');
-      return oldItem.card_media_title !== this.media_item.card_media_title 
+      return oldItem.media_title !== this.media_item.media_title
+        || oldItem.media_artist !== this.media_item.media_artist
         || oldItem.media_image !== this.media_item.media_image
         || oldItem.playing !== this.media_item.playing
         || oldItem.show_action_buttons !== this.media_item.show_action_buttons
@@ -76,14 +76,17 @@ class MediaRow extends LitElement {
     `
   }
   private renderArtist() {
-    return html`
-      <span 
-        slot="supporting-text" 
-        class="title"
-      >
-        ${this.media_item.media_artist}
-      </span>
-    `
+    if (this.media_item.show_artist_name) {
+      return html`
+        <span 
+          slot="supporting-text" 
+          class="title"
+        >
+          ${this.media_item.media_artist}
+        </span>
+      `
+    }
+    return html``
   }
   private renderActionButtons() {
     if (this.media_item.show_action_buttons) {

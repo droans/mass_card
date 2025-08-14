@@ -17,6 +17,6 @@ export type QueueItem = {
   queue_item_id: string;
   media_image: string;
   show_action_buttons: boolean;
-  card_media_title: string;
+  show_artist_name: boolean
   show_move_up_next: boolean;
 }
