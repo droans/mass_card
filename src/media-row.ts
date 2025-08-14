@@ -42,79 +42,128 @@ class MediaRow extends LitElement {
       return true;
     }
     if (_changedProperties.has('item')) {
-      const oldItem = _changedProperties.get('item');
-      return oldItem.card_media_title !== this.media_item.card_media_title 
+      const oldItem: QueueItem = _changedProperties.get('item');
+      return oldItem.media_title !== this.media_item.media_title
+        || oldItem.media_artist !== this.media_item.media_artist
         || oldItem.media_image !== this.media_item.media_image
         || oldItem.playing !== this.media_item.playing
-        || oldItem.visibility !== this.media_item.visibility
+        || oldItem.show_action_buttons !== this.media_item.show_action_buttons
         || oldItem.show_move_up_next !== this.media_item.show_move_up_next
     }
     return true;
   }
-  render() {
-    const played = this.media_item.visibility == 'hidden' && !this.media_item.playing;
-    return html`
-      <ha-md-list-item 
-        class="button${this.media_item.playing ? '-active' : ''}"
-		    @click=${this.callOnQueueItemSelectedService}
-        type="button"
-      >
+  private renderThumbnail() {
+    const played = !this.media_item.show_action_buttons  && !this.media_item.playing;
+    if (this.media_item.media_image && this.showAlbumCovers) {
+      return html`
         <img 
           class="thumbnail${played ? '-disabled' : ''}"
           slot="start"
-          ?hidden=${!this.media_item.media_image || !this.showAlbumCovers}
           src="${this.media_item.media_image}"
         >
         </img>
-        <span 
-          slot="headline" 
-          class="title"
-        >
-          ${this.media_item.media_title}
-        </span>
+      `
+    }
+    return html``
+  }
+  private renderTitle() {
+    return html`
+      <span 
+        slot="headline" 
+        class="title"
+      >
+        ${this.media_item.media_title}
+      </span>
+    `
+  }
+  private renderArtist() {
+    if (this.media_item.show_artist_name) {
+      return html`
         <span 
           slot="supporting-text" 
           class="title"
         >
           ${this.media_item.media_artist}
         </span>
+      `
+    }
+    return html``
+  }
+  private renderActionButtons() {
+    if (this.media_item.show_action_buttons) {
+      return html`
         <span 
           slot="end"
           class="button-group"
-          style="visibility: ${this.media_item.visibility};"
         >
-          <ha-icon-button class="action-button"
-            .path=${mdiArrowCollapseUp}
-            style="visibility: ${this.media_item.show_move_up_next}"
-            @click=${this.callMoveItemNextService}>
-          </ha-icon-button>
-
-          <ha-icon-button class="action-button"
-            .path=${mdiArrowUp}
-            style="visibility: ${this.media_item.show_move_up_next}"
-            @click=${this.callMoveItemUpService}>
-          </ha-icon-button>
-
-          <ha-icon-button class="action-button"
-            .path=${mdiArrowDown}
-            @click=${this.callMoveItemDownService}>
-          </ha-icon-button>
-
-          <ha-icon-button class="action-button"
-            .path=${mdiClose}
-            @click=${this.callRemoveItemService}>
-          </ha-icon-button>
+          ${this.renderMoveNextButton()}
+          ${this.renderMoveUpButton()}
+          ${this.renderMoveDownButton()}
+          ${this.renderRemoveButton()}
         </span>
-
+      `;
+    }
+    return html``
+  }
+  private renderMoveNextButton() {
+    if (this.media_item.show_move_up_next) {
+      return html`
+        <ha-icon-button 
+          class="action-button"
+          .path=${mdiArrowCollapseUp}
+          @click=${this.callMoveItemNextService}>
+        </ha-icon-button>
+      `
+    }
+    return html``
+  }
+  private renderMoveUpButton() {
+    if (this.media_item.show_move_up_next) {
+      return html`
+        <ha-icon-button 
+          class="action-button"
+          .path=${mdiArrowUp}
+          @click=${this.callMoveItemUpService}>
+        </ha-icon-button>
+      `
+    }
+    return html``
+  }
+  private renderMoveDownButton() {
+    return html`
+      <ha-icon-button 
+        class="action-button"
+        .path=${mdiArrowDown}
+        @click=${this.callMoveItemDownService}>
+      </ha-icon-button>
+    `    
+  }
+  private renderRemoveButton() {
+    return html`
+      <ha-icon-button 
+        class="action-button"
+        .path=${mdiClose}
+        @click=${this.callRemoveItemService}>
+      </ha-icon-button>
+    `
+  }
+  render() {
+    return html`
+      <ha-md-list-item 
+        class="button${this.media_item.playing ? '-active' : ''}"
+		    @click=${this.callOnQueueItemSelectedService}
+        type="button"
+      >
+        ${this.renderThumbnail()}
+        ${this.renderTitle()}
+        ${this.renderArtist()}
+        ${this.renderActionButtons()}
       </ha-md-list-item>
     `
   }
   static get styles() {
     return [
       css`
-        .mdc-deprecated-list-item__text {
-          width: 100%;
-        }
         .button {
           margin: 0.15rem;
           border-radius: 0.7rem;
@@ -135,15 +184,6 @@ class MediaRow extends LitElement {
           padding-inline-end: 8px;
           color: var(--accent-color);
         }
-
-        .row {
-          margin-right: calc(var(--icon-width) * 2 + 8px);
-        }
-        .row-disabled {
-          --font-color: var(--disabled-text-color);
-          margin-right: calc(var(--icon-width) * 2 + 8px);
-        }
-
         .thumbnail {
           width: var(--row-height);
           height: var(--row-height);
@@ -153,14 +193,13 @@ class MediaRow extends LitElement {
           border-radius: 0.7rem;
         }
         .thumbnail-disabled {
-          filter: opacity(0.5);
           width: var(--row-height);
           height: var(--row-height);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          margin-right: 12px;
-          border-radius: 8px;
+          border-radius: 0.7rem;
+          filter: opacity(0.5);
         }
         .button-group {
           display: flex;
