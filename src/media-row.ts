@@ -189,13 +189,13 @@ class MediaRow extends LitElement {
           border-radius: 0.7rem;
         }
         .thumbnail-disabled {
-          filter: opacity(0.5);
           width: var(--row-height);
           height: var(--row-height);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
           border-radius: 0.7rem;
+          filter: opacity(0.5);
         }
         .button-group {
           display: flex;
