@@ -91,7 +91,6 @@ class MediaRow extends LitElement {
         <span 
           slot="end"
           class="button-group"
-          style="visibility: ${this.media_item.visibility};"
         >
           ${this.renderMoveNextButton()}
           ${this.renderMoveUpButton()}
@@ -108,7 +107,6 @@ class MediaRow extends LitElement {
         <ha-icon-button 
           class="action-button"
           .path=${mdiArrowCollapseUp}
-          style="visibility: ${this.media_item.show_move_up_next}"
           @click=${this.callMoveItemNextService}>
         </ha-icon-button>
       `
@@ -121,7 +119,6 @@ class MediaRow extends LitElement {
         <ha-icon-button 
           class="action-button"
           .path=${mdiArrowUp}
-          style="visibility: ${this.media_item.show_move_up_next}"
           @click=${this.callMoveItemUpService}>
         </ha-icon-button>
       `
