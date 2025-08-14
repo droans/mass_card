@@ -46,13 +46,13 @@ class MediaRow extends LitElement {
       return oldItem.card_media_title !== this.media_item.card_media_title 
         || oldItem.media_image !== this.media_item.media_image
         || oldItem.playing !== this.media_item.playing
-        || oldItem.visibility !== this.media_item.visibility
+        || oldItem.show_action_buttons !== this.media_item.show_action_buttons
         || oldItem.show_move_up_next !== this.media_item.show_move_up_next
     }
     return true;
   }
   private renderThumbnail() {
-    const played = this.media_item.visibility == 'hidden' && !this.media_item.playing;
+    const played = !this.media_item.show_action_buttons  && !this.media_item.playing;
     if (this.media_item.media_image && this.showAlbumCovers) {
       return html`
         <img 
@@ -86,7 +86,7 @@ class MediaRow extends LitElement {
     `
   }
   private renderActionButtons() {
-    if (this.media_item.visibility == 'visible') {
+    if (this.media_item.show_action_buttons) {
       return html`
         <span 
           slot="end"
