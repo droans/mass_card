@@ -85,7 +85,7 @@ class MediaRow extends LitElement {
       </span>
     `
   }
-  private RenderActionButtons() {
+  private renderActionButtons() {
     if (this.media_item.visibility == 'visible') {
       return html`
         <span 
@@ -93,16 +93,16 @@ class MediaRow extends LitElement {
           class="button-group"
           style="visibility: ${this.media_item.visibility};"
         >
-          ${this.RenderMoveNextButton()}
-          ${this.RenderMoveUpButton()}
-          ${this.RenderMoveDownButton()}
-          ${this.RenderRemoveButton()}
+          ${this.renderMoveNextButton()}
+          ${this.renderMoveUpButton()}
+          ${this.renderMoveDownButton()}
+          ${this.renderRemoveButton()}
         </span>
       `;
     }
     return html``
   }
-  private RenderMoveNextButton() {
+  private renderMoveNextButton() {
     if (this.media_item.show_move_up_next) {
       return html`
         <ha-icon-button 
@@ -115,7 +115,7 @@ class MediaRow extends LitElement {
     }
     return html``
   }
-  private RenderMoveUpButton() {
+  private renderMoveUpButton() {
     if (this.media_item.show_move_up_next) {
       return html`
         <ha-icon-button 
@@ -128,7 +128,7 @@ class MediaRow extends LitElement {
     }
     return html``
   }
-  private RenderMoveDownButton() {
+  private renderMoveDownButton() {
     return html`
       <ha-icon-button 
         class="action-button"
@@ -137,7 +137,7 @@ class MediaRow extends LitElement {
       </ha-icon-button>
     `    
   }
-  private RenderRemoveButton() {
+  private renderRemoveButton() {
     return html`
       <ha-icon-button 
         class="action-button"
@@ -157,8 +157,7 @@ class MediaRow extends LitElement {
         ${this.renderThumbnail()}
         ${this.renderTitle()}
         ${this.renderArtist()}
-        ${this.RenderActionButtons()}
-
+        ${this.renderActionButtons()}
       </ha-md-list-item>
     `
   }
