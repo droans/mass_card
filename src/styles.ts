@@ -7,9 +7,20 @@ export default css`
     overflow: hidden;
     width: 100%;
     height: 100%;
-    display: flex;
     justify-content: center;
+    background: unset;
+    box-shadow: unset;
   }
+  .mass-panel {
+    --expansion-panel-content-padding: 0px;
+    --md-list-container-color: rgba(0,0,0,0) !important;
+    --md-list-item-leading-space: 0px;
+    --md-list-item-two-line-container-height: 48px;
+  }
+    --md-ripple-hover-color: var(--mdc-theme-primary);
+    --mdc-ripple-hover-color: var(--mdc-theme-primary);
+    --mdc-ripple-color: var(--mdc-theme-primary);
+    --md-ripple-color: var(--mdc-theme-primary);
   .main {
     display: flex;
     height: 100%;
@@ -43,13 +54,11 @@ export default css`
   .list {
     height: 400px;
     overflow-y: scroll;
-    --mdc-icon-button-size: 1.5rem;
-    --mdc-icon-size: 1rem;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
   *[selected] {
-    color: var(--acent-color)
+    color: var(--accent-color)
   }
   *[hide] {
   display: none;

@@ -9,7 +9,7 @@ import {
 import { QueueItem } from './types';
 
 class MediaRow extends LitElement {
-  @property({ attribute: false }) item!: QueueItem;
+  @property({ attribute: false }) media_item!: QueueItem;
   @property({ type: Boolean }) selected = false;
   public removeService;
   public moveQueueItemNextService;
@@ -20,126 +20,200 @@ class MediaRow extends LitElement {
   
   private callMoveItemUpService(e) {
     e.stopPropagation();
-    this.moveQueueItemUpService(this.item.queue_item_id);
+    this.moveQueueItemUpService(this.media_item.queue_item_id);
   }
   private callMoveItemDownService(e) {
     e.stopPropagation();
-    this.moveQueueItemDownService(this.item.queue_item_id);
+    this.moveQueueItemDownService(this.media_item.queue_item_id);
   }
   private callMoveItemNextService(e) {
     e.stopPropagation();
-    this.moveQueueItemNextService(this.item.queue_item_id);
+    this.moveQueueItemNextService(this.media_item.queue_item_id);
   }
   private callRemoveItemService(e) {
     e.stopPropagation();
-    this.removeService(this.item.queue_item_id);
+    this.removeService(this.media_item.queue_item_id);
   }
   private callOnQueueItemSelectedService() {
-    this.selectedService(this.item.queue_item_id, this.item.media_content_id);
+    this.selectedService(this.media_item.queue_item_id, this.media_item.media_content_id);
   }
   protected shouldUpdate(_changedProperties): boolean {
     if (_changedProperties.has('selected')) {
       return true;
     }
     if (_changedProperties.has('item')) {
-      const oldItem = _changedProperties.get('item');
-      return oldItem.card_media_title !== this.item.card_media_title 
-        || oldItem.media_image !== this.item.media_image
-        || oldItem.playing !== this.item.playing
-        || oldItem.visibility !== this.item.visibility
-        || oldItem.show_move_up_next !== this.item.show_move_up_next
+      const oldItem: QueueItem = _changedProperties.get('item');
+      return oldItem.media_title !== this.media_item.media_title
+        || oldItem.media_artist !== this.media_item.media_artist
+        || oldItem.media_image !== this.media_item.media_image
+        || oldItem.playing !== this.media_item.playing
+        || oldItem.show_action_buttons !== this.media_item.show_action_buttons
+        || oldItem.show_move_up_next !== this.media_item.show_move_up_next
     }
     return true;
   }
-  render() {
-    const played = this.item.visibility == 'hidden' && !this.item.playing;
+  private renderThumbnail() {
+    const played = !this.media_item.show_action_buttons  && !this.media_item.playing;
+    if (this.media_item.media_image && this.showAlbumCovers) {
+      return html`
+        <img 
+          class="thumbnail${played ? '-disabled' : ''}"
+          slot="start"
+          src="${this.media_item.media_image}"
+        >
+        </img>
+      `
+    }
+    return html``
+  }
+  private renderTitle() {
     return html`
-      <ha-list-item @click=${this.callOnQueueItemSelectedService} hasMeta ?selected=${this.selected} ?activated=${this.selected} class="button">
-        <div class="row${played ? '-disabled' : ''}">
-          <div class="thumbnail" ?hidden=${!this.item.media_image || !this.showAlbumCovers} style="background-image: ${played ? 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),' : ''} url(${this.item.media_image})"></div>
-          <div class="title">${this.item.card_media_title}</div>
-        </div>
-        <div slot="meta" class="button-group" style="visibility: ${this.item.visibility};">
-          <ha-icon-button
-            .path=${mdiArrowCollapseUp}
-            class="action-button"
-            style="visibility: ${this.item.show_move_up_next}"
-            @click=${this.callMoveItemNextService}
-            >
-          </ha-icon-button>
-          <ha-icon-button
-            .path=${mdiArrowUp}
-            style="visibility: ${this.item.show_move_up_next}"
-            class="action-button"
-            @click=${this.callMoveItemUpService}
-            >
-          </ha-icon-button>
-          <ha-icon-button
-            .path=${mdiArrowDown}
-            class="action-button"
-            @click=${this.callMoveItemDownService}
-            >
-          </ha-icon-button>
-          <ha-icon-button
-            .path=${mdiClose}
-            class="action-button"
-            @click=${this.callRemoveItemService}
-            >
-          </ha-icon-button>
-        <slot></slot>
-        </div>
-      </ha-list-item>
-    `;
+      <span 
+        slot="headline" 
+        class="title"
+      >
+        ${this.media_item.media_title}
+      </span>
+    `
+  }
+  private renderArtist() {
+    if (this.media_item.show_artist_name) {
+      return html`
+        <span 
+          slot="supporting-text" 
+          class="title"
+        >
+          ${this.media_item.media_artist}
+        </span>
+      `
+    }
+    return html``
+  }
+  private renderActionButtons() {
+    if (this.media_item.show_action_buttons) {
+      return html`
+        <span 
+          slot="end"
+          class="button-group"
+        >
+          ${this.renderMoveNextButton()}
+          ${this.renderMoveUpButton()}
+          ${this.renderMoveDownButton()}
+          ${this.renderRemoveButton()}
+        </span>
+      `;
+    }
+    return html``
+  }
+  private renderMoveNextButton() {
+    if (this.media_item.show_move_up_next) {
+      return html`
+        <ha-icon-button 
+          class="action-button"
+          .path=${mdiArrowCollapseUp}
+          @click=${this.callMoveItemNextService}>
+        </ha-icon-button>
+      `
+    }
+    return html``
+  }
+  private renderMoveUpButton() {
+    if (this.media_item.show_move_up_next) {
+      return html`
+        <ha-icon-button 
+          class="action-button"
+          .path=${mdiArrowUp}
+          @click=${this.callMoveItemUpService}>
+        </ha-icon-button>
+      `
+    }
+    return html``
+  }
+  private renderMoveDownButton() {
+    return html`
+      <ha-icon-button 
+        class="action-button"
+        .path=${mdiArrowDown}
+        @click=${this.callMoveItemDownService}>
+      </ha-icon-button>
+    `    
+  }
+  private renderRemoveButton() {
+    return html`
+      <ha-icon-button 
+        class="action-button"
+        .path=${mdiClose}
+        @click=${this.callRemoveItemService}>
+      </ha-icon-button>
+    `
+  }
+  render() {
+    return html`
+      <ha-md-list-item 
+        class="button${this.media_item.playing ? '-active' : ''}"
+		    @click=${this.callOnQueueItemSelectedService}
+        type="button"
+      >
+        ${this.renderThumbnail()}
+        ${this.renderTitle()}
+        ${this.renderArtist()}
+        ${this.renderActionButtons()}
+      </ha-md-list-item>
+    `
   }
   static get styles() {
     return [
       css`
-        .mdc-deprecated-list-item__text {
-          width: 100%;
-        }
         .button {
-          margin: 0.3rem;
+          margin: 0.15rem;
           border-radius: 0.7rem;
           background: var(--card-background-color);
-          --icon-width: 35px;
-          height: 40px;
+          --row-height: 48px;
+          --icon-width: 30px;
+          height: var(--row-height);
         }
-
-        .row {
-          display: flex;
-          margin-right: calc(var(--icon-width) * 2 + 8px);
+        .button-active {
+          margin: 0.15rem;
+          border-radius: 0.7rem;
+          background-color: rgba(from var(--accent-color) r g b / 0.2);
+          --row-height: 48px;
+          --icon-width: 30px;
+          height: var(--row-height);
+          --font-color: var(--mdc-theme-primary);
+          padding-inline-start: 0px;
+          padding-inline-end: 8px;
+          color: var(--accent-color);
         }
-        .row-disabled {
-          --font-color: var(--disabled-text-color);
-          display: flex;
-          margin-right: calc(var(--icon-width) * 2 + 8px);
-        }
-
         .thumbnail {
-          width: var(--icon-width);
-          height: var(--icon-width);
+          width: var(--row-height);
+          height: var(--row-height);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: left;
-          padding-left: 12px;
+          border-radius: 0.7rem;
+        }
+        .thumbnail-disabled {
+          width: var(--row-height);
+          height: var(--row-height);
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: left;
+          border-radius: 0.7rem;
+          filter: opacity(0.5);
         }
         .button-group {
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: flex-end;
-          gap: 4px;
         }
         .action-button {
           width: var(--icon-width);
-          transform: scale(1.5);
+          transform: scale(1);
           align-content: center;
         }
-
         .title {
           font-size: 1.1rem;
-          align-self: center;
-          flex: 1;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

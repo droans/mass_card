@@ -36,7 +36,7 @@ Display the queue for any given media player.
 [![My Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=mass_card&owner=droans&category=Plugin)
 
 ### Desktop:
-<img src="https://github.com/droans/mass_card/blob/main/static/queue_example.png" alt="Queue Card Example" max-height=300>
+<img src="https://github.com/droans/mass_card/blob/main/static/queue_example.png" alt="Queue Card Example">
 
 ### Mobile:
 <img src="https://github.com/droans/mass_card/blob/main/static/queue_example_mobile.png" alt="Queue Card Mobile Example" height=300>
@@ -83,3 +83,4 @@ expanded: false
 | limit_after       | int  | No       | 100          | Number of item to display after current active item                             |
 | show_album_covers | bool | No       | true         | Show album cover images for each item                                           |
 | show_artist_names | bool | No       | true         | Show artist names for each item                                                 |
+| allow_collapsing  | bool | No       | true         | Allow card to collapse when true, show full card (max 400px tall) if false      |

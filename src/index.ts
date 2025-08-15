@@ -8,6 +8,7 @@ import {
 import { QueueItem, Config } from './types'
 import HassService from './services'
 import styles from './styles';
+import { DEFAULT_CONFIG } from './const'
 import './media-row'
 import { version } from '../package.json';
 
@@ -47,12 +48,7 @@ export class MusicAssistantCard extends LitElement {
   @state() private error?: TemplateResult;
 
   private newId: string = '';
-  private defaultHeaderTitle: string = "Player Queue";
-  private defaultExpand: boolean = false;
-  private defaultLimitBefore: number = 5;
-  private defaultLimitAfter: number = 100;
-  private defaultShowAlbumCovers: boolean = true;
-  private defaultShowArtistNames: boolean = true;
+  private defaultAllowCollapse: boolean = true;
   private services!: HassService;
   private _listening: boolean = false;
   private _unsubscribe: any;
@@ -90,14 +86,6 @@ export class MusicAssistantCard extends LitElement {
   }
 
   public setConfig(config?: Config) {
-    const default_config: any = {
-      expanded: this.defaultExpand,
-      title: this.defaultHeaderTitle,
-      limit_before: this.defaultLimitBefore,
-      limit_after: this.defaultLimitAfter,
-      show_album_covers: this.defaultShowAlbumCovers,
-      show_artist_names: this.defaultShowArtistNames
-    }
     if (!config) {
       throw this.createError('Invalid configuration')
     }
@@ -105,7 +93,7 @@ export class MusicAssistantCard extends LitElement {
       throw this.createError('You need to define entitiy.');
     };
     this.config = {
-      ...default_config,
+      ...DEFAULT_CONFIG,
       ...config
     }
   }
@@ -142,9 +130,9 @@ export class MusicAssistantCard extends LitElement {
     return queue.map( (element, index) => ({
       ...element,
       playing: index === activeIndex,
-      visibility: index > activeIndex ? 'visible' : 'hidden',
-      show_move_up_next: index > activeIndex + 1 ? 'visible' : 'hidden',
-      card_media_title: this.config.show_artist_names ? `${element.media_title} - ${element.media_artist}` : element.media_title
+      show_action_buttons: index > activeIndex,
+      show_move_up_next: index > activeIndex + 1,
+      show_artist_name: this.config.show_artist_names
     }));
   }
 
@@ -229,10 +217,11 @@ export class MusicAssistantCard extends LitElement {
           item.queue_item_id, 
           html`
             <mass-media-row
-              .item=${item}
+              .media_item=${item}
               .selected=${item.playing}
               .showAlbumCovers=${show_album_covers}
               .showMoveUpNext=${item.show_move_up_next}
+              .showArtistName=${item.show_artist_name}
               .selectedService=${this.onQueueItemSelected}
               .removeService=${this.onQueueItemRemoved}
               .moveQueueItemNextService=${this.onQueueItemMoveNext}
@@ -247,16 +236,18 @@ export class MusicAssistantCard extends LitElement {
 
   protected render() {
     return html`
-      <ha-expansion-panel
-        header=${this.config.title}
-        .expanded=${this.config.expanded}
-      >
-        <div class="list">
-          <ha-list>
+      <ha-card>
+        <ha-expansion-panel
+          class="mass-panel"
+          header=${this.config.title}
+          .expanded=${this.config.expanded || !this.config.allow_collapsing}
+          ${this.config.allow_collapsing ? '': 'no-collapse'}
+        >
+          <ha-md-list class="list">
             ${this.renderQueueItems()}
-          </ha-list>
-        </div>
-      </ha-expansion-panel>
+          </ha-md-list>
+        </ha-expansion-panel>
+      </ha-card>
     `
   }
   static get styles(): CSSResultGroup {

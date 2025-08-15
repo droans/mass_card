@@ -552,7 +552,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0":
+"@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0, @lit-labs/ssr-dom-shim@npm:^1.4.0":
   version: 1.4.0
   resolution: "@lit-labs/ssr-dom-shim@npm:1.4.0"
   checksum: 10c0/eb8b4c6ed83db48e2f2c8c038f88e0ac302214918e5c1209458cb82a35ce27ce586100c5692885b2c5520f6941b2c3512f26c4d7b7dd48f13f17f1668553395a
@@ -565,6 +565,15 @@ __metadata:
   dependencies:
     "@lit-labs/ssr-dom-shim": "npm:^1.0.0"
   checksum: 10c0/10f1d25e24e32feb21c4c6f9e11d062901241602e12c4ecf746b3138f87fed4d8394194645514d5c1bfd5f33f3fd56ee8ef41344e2cb4413c40fe4961ec9d419
+  languageName: node
+  linkType: hard
+
+"@lit/reactive-element@npm:^2.1.0":
+  version: 2.1.1
+  resolution: "@lit/reactive-element@npm:2.1.1"
+  dependencies:
+    "@lit-labs/ssr-dom-shim": "npm:^1.4.0"
+  checksum: 10c0/200d72c3d1bb8babc88123f3684e52cf490ec20cc7974002d666b092afa18e4a7c1ca15883c84c0b8671361a9875905eb18c1f03d20ecbbbaefdaec6e0c7c4eb
   languageName: node
   linkType: hard
 
@@ -2037,7 +2046,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"home-assistant-js-websocket@npm:6.1.1, home-assistant-js-websocket@npm:^6.0.1":
+"home-assistant-js-websocket@npm:9.5.0":
+  version: 9.5.0
+  resolution: "home-assistant-js-websocket@npm:9.5.0"
+  checksum: 10c0/7246e22f74fd4f0959723cbfc2ce36552ea491485ab03c17c9320dec8a62c6c5f037337ca64e6258d5be0270143373966aa7273946410253b7d41bc3e16575f1
+  languageName: node
+  linkType: hard
+
+"home-assistant-js-websocket@npm:^6.0.1":
   version: 6.1.1
   resolution: "home-assistant-js-websocket@npm:6.1.1"
   checksum: 10c0/fe00b8d7a681d39b31ac5078b79fa1ef67cccd37df2c7ec31b1ad9ded33c899570b453c9439db71c3bda24df6d0c1e3d9d040583b0717f4630476ab528120a9f
@@ -2315,6 +2331,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lit-element@npm:^4.2.0":
+  version: 4.2.1
+  resolution: "lit-element@npm:4.2.1"
+  dependencies:
+    "@lit-labs/ssr-dom-shim": "npm:^1.4.0"
+    "@lit/reactive-element": "npm:^2.1.0"
+    lit-html: "npm:^3.3.0"
+  checksum: 10c0/2cb30cc7c5a006cd7995f882c5e9ed201638dc3513fdee989dd7b78d8ceb201cf6930abe5ebc5185d7fc3648933a6b6187742d5534269961cd20b9a78617068d
+  languageName: node
+  linkType: hard
+
 "lit-html@npm:^2.8.0":
   version: 2.8.0
   resolution: "lit-html@npm:2.8.0"
@@ -2324,7 +2351,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:2.8.0, lit@npm:^2.1.1":
+"lit-html@npm:^3.3.0":
+  version: 3.3.1
+  resolution: "lit-html@npm:3.3.1"
+  dependencies:
+    "@types/trusted-types": "npm:^2.0.2"
+  checksum: 10c0/0dfb645f35c2ae129a40c09550b4d0e60617b715af7f2e0b825cdfd0624118fc4bf16e9cfaabdfbe43469522e145057d3cc46c64ca1019681480e4b9ae8f52cd
+  languageName: node
+  linkType: hard
+
+"lit@npm:3.3.1":
+  version: 3.3.1
+  resolution: "lit@npm:3.3.1"
+  dependencies:
+    "@lit/reactive-element": "npm:^2.1.0"
+    lit-element: "npm:^4.2.0"
+    lit-html: "npm:^3.3.0"
+  checksum: 10c0/9f3e171e211be7cd3e01693eac4ba4752fc7bafebc8298fc5b9cb70ff279dd4dc292f1cb425ca42f61c3767a75b7557295c2f6b16335719bc8cf1ca6f3622fb7
+  languageName: node
+  linkType: hard
+
+"lit@npm:^2.1.1":
   version: 2.8.0
   resolution: "lit@npm:2.8.0"
   dependencies:
@@ -2445,8 +2492,8 @@ __metadata:
     eslint: "npm:9.21.0"
     eslint-config-prettier: "npm:10.0.2"
     eslint-plugin-jest: "npm:28.11.0"
-    home-assistant-js-websocket: "npm:6.1.1"
-    lit: "npm:2.8.0"
+    home-assistant-js-websocket: "npm:9.5.0"
+    lit: "npm:3.3.1"
     rollup: "npm:^4.0.0"
     rollup-plugin-commonjs: "npm:^10.1.0"
     rollup-plugin-gzip: "npm:^4.0.0"
