@@ -18,8 +18,9 @@ jobs:
           node-version: 22.x
       - name: Prepare dependencies
         run: |
+          echo "Get Node version"
+          node --version
           echo "Install Yarn"
-          nvm use 22
           npm install -g yarn@4.9.1
           echo "Check that we're running latest yarn..."
           which yarn
