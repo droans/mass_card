@@ -19,6 +19,7 @@ jobs:
       - name: Prepare dependencies
         run: |
           echo "Install Yarn"
+          nvm use 22
           npm install -g yarn@4.9.1
           echo "Check that we're running latest yarn..."
           which yarn
