@@ -16,7 +16,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: 'yarn'
       - name: Prepare dependencies
         run: |
           echo "Install Yarn"
@@ -48,6 +47,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - name: Prepare dependencies
+        run: |
+          echo "Install Yarn"
+          npm install -g yarn@4.9.1
+          echo "Check that we're running latest yarn..."
+          which yarn
       - name: Cache Node.js modules
         uses: actions/cache@v3
         with:
