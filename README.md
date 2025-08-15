@@ -39,7 +39,7 @@ Display the queue for any given media player.
 <img src="https://github.com/droans/mass_card/blob/main/static/queue_example.png" alt="Queue Card Example">
 
 ### Mobile:
-<img src="https://github.com/droans/mass_card/blob/main/static/queue_example_mobile.png" alt="Queue Card Mobile Example" max-height=300>
+<img src="https://github.com/droans/mass_card/blob/main/static/queue_example_mobile.png" alt="Queue Card Mobile Example" height=300>
 
 ## Installation
 
