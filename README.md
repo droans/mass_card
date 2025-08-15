@@ -1,8 +1,29 @@
-[![GitHub Release](https://img.shields.io/github/release/droans/mass_card.svg?style=for-the-badge)](https://github.com/droans/mass_card/releases)
-[![License](https://img.shields.io/github/license/droans/mass_card.svg?style=for-the-badge)](LICENSE)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-blue.svg?style=for-the-badge)](https://github.com/hacs/default)
-[![Project Maintenance](https://img.shields.io/badge/maintainer-droans-blue.svg?style=for-the-badge)](https://github.com/droans)
-[![GitHub Activity](https://img.shields.io/github/last-commit/droans/mass_card?style=for-the-badge)](https://github.com/droans/mass_card/commits/main)
+<div align="center">
+
+[![GitHub Release][release-shield]][release]
+[![Beta][beta-shield]][beta]
+![Downloads][downloads-shield]
+[![HACS][hacs-badge-shield]][hacs-badge]
+
+[![Maintainer][maintainer-shield]][maintainer]
+[![GitHub Activity][activity-shield]][activity]
+[![License][license-shield]][license]
+
+</div>
+
+[release-shield]: https://img.shields.io/github/release/droans/mass_card.svg?style=for-the-badge
+[release]: https://github.com/droans/mass_card/releases
+[license-shield]: https://img.shields.io/github/license/droans/mass_card.svg?style=for-the-badge
+[license]: LICENSE
+[hacs-badge-shield]: https://img.shields.io/badge/HACS-Default-blue.svg?style=for-the-badge
+[hacs-badge]: https://github.com/hacs/default
+[maintainer-shield]: https://img.shields.io/badge/maintainer-droans-blue.svg?style=for-the-badge
+[maintainer]: https://github.com/droans
+[activity-shield]: https://img.shields.io/github/last-commit/droans/mass_card?style=for-the-badge
+[activity]: https://github.com/droans/mass_card/commits/main
+[beta-shield]: https://img.shields.io/github/v/release/droans/mass_card?include_prereleases&style=for-the-badge&filter=*b*&label=Pre-Release
+[beta]: https://github.com/droans/mass_card/releases
+[downloads-shield]: https://img.shields.io/github/downloads/droans/mass_card/total?style=for-the-badge
 
 # Music Assistant Queue Card
 
