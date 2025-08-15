@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js'
 import {
   mdiClose,
@@ -6,43 +6,48 @@ import {
   mdiArrowUp,
   mdiArrowDown
 } from '@mdi/js';
-import { QueueItem } from './types';
+import { 
+  QueueItem,
+  QueueService,
+  ItemSelectedService
+} from './types';
+
 
 class MediaRow extends LitElement {
   @property({ attribute: false }) media_item!: QueueItem;
   @property({ type: Boolean }) selected = false;
-  public removeService;
-  public moveQueueItemNextService;
-  public moveQueueItemUpService;
-  public moveQueueItemDownService;
-  public selectedService;
-  public showAlbumCovers: boolean = true;
+  public removeService!: QueueService;
+  public moveQueueItemNextService!: QueueService;
+  public moveQueueItemUpService!: QueueService;
+  public moveQueueItemDownService!: QueueService;
+  public selectedService!: ItemSelectedService;
+  public showAlbumCovers = true;
   
-  private callMoveItemUpService(e) {
+  private callMoveItemUpService(e: Event) {
     e.stopPropagation();
     this.moveQueueItemUpService(this.media_item.queue_item_id);
   }
-  private callMoveItemDownService(e) {
+  private callMoveItemDownService(e: Event) {
     e.stopPropagation();
     this.moveQueueItemDownService(this.media_item.queue_item_id);
   }
-  private callMoveItemNextService(e) {
+  private callMoveItemNextService(e: Event) {
     e.stopPropagation();
     this.moveQueueItemNextService(this.media_item.queue_item_id);
   }
-  private callRemoveItemService(e) {
+  private callRemoveItemService(e: Event) {
     e.stopPropagation();
     this.removeService(this.media_item.queue_item_id);
   }
   private callOnQueueItemSelectedService() {
     this.selectedService(this.media_item.queue_item_id, this.media_item.media_content_id);
   }
-  protected shouldUpdate(_changedProperties): boolean {
+  protected shouldUpdate(_changedProperties: PropertyValues<this>): boolean {
     if (_changedProperties.has('selected')) {
       return true;
     }
-    if (_changedProperties.has('item')) {
-      const oldItem: QueueItem = _changedProperties.get('item');
+    if (_changedProperties.has('media_item')) {
+      const oldItem: QueueItem = _changedProperties.get('media_item')!;
       return oldItem.media_title !== this.media_item.media_title
         || oldItem.media_artist !== this.media_item.media_artist
         || oldItem.media_image !== this.media_item.media_image
@@ -105,6 +110,7 @@ class MediaRow extends LitElement {
     }
     return html``
   }
+      /* eslint-disable @typescript-eslint/unbound-method */
   private renderMoveNextButton() {
     if (this.media_item.show_move_up_next) {
       return html`
@@ -147,6 +153,7 @@ class MediaRow extends LitElement {
       </ha-icon-button>
     `
   }
+
   render() {
     return html`
       <ha-md-list-item 
@@ -161,6 +168,7 @@ class MediaRow extends LitElement {
       </ha-md-list-item>
     `
   }
+  /* eslint-enable @typescript-eslint/unbound-method */
   static get styles() {
     return [
       css`

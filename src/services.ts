@@ -12,6 +12,9 @@ export default class HassService {
 
   async getQueue(limit_before: number, limit_after: number): Promise<QueueItem[]> {
     try {
+      /* eslint-disable 
+        @typescript-eslint/no-explicit-any
+      */
       const ret = await this.hass.callWS<any>({
         type: 'call_service',
         domain: 'mass_queue',
@@ -23,9 +26,11 @@ export default class HassService {
         },
         return_response: true
       });
-      const result = ret.response[this.config.entity];
+      const result: QueueItem[] = ret.response[this.config.entity];
       return result;
+      /* eslint-enable */
     } catch (e) {
+      /* eslint-disable-next-line no-console */
       console.error('Error getting queue', e);
       return [];
     }
@@ -40,6 +45,7 @@ export default class HassService {
         }
       )
     } catch (e) {
+      /* eslint-disable-next-line no-console */
       console.error('Error selecting queue item', e)
     }
   }
@@ -53,6 +59,7 @@ export default class HassService {
         }
       )
     } catch (e) {
+      /* eslint-disable-next-line no-console */
       console.error('Error removing queue item', e)
     }
   }
@@ -66,6 +73,7 @@ export default class HassService {
         }
       )
     } catch (e) {
+      /* eslint-disable-next-line no-console */
       console.error('Error moving queue item next', e)
     }
   }
@@ -79,6 +87,7 @@ export default class HassService {
         }
       )
     } catch (e) {
+      /* eslint-disable-next-line no-console */
       console.error('Error moving queue item up', e)
     }
   }
@@ -92,6 +101,7 @@ export default class HassService {
         }
       )
     } catch (e) {
+      /* eslint-disable-next-line no-console */
       console.error('Error moving queue item down', e)
     }
   }
