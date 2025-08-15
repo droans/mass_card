@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 const rootConfigFiles = [".prettierrc.js", "eslint.config.mjs"];
 
 export default tseslint.config(
-  { ignores: ["dist", "node_modules"] },
+  { ignores: ["dist", "node_modules/*"] },
   // apply default config
   prettierConfig,
   eslint.configs.recommended,
@@ -32,6 +32,11 @@ export default tseslint.config(
     rules: {
       "no-console": "warn",
       "no-unused-vars": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unnecessary-condition": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {

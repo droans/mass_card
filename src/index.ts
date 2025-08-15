@@ -21,17 +21,23 @@ const cardUrl = 'https://github.com/droans/mass_card';
 
 declare global {
   interface Window {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     loadCardHelpers?: () => Promise<any>;
   }
 }
 
+      /* eslint-disable-next-line 
+        no-console, 
+      */
 console.info(
   `%c ${cardName}${DEV ? ' DEV' : ''} \n%c Version v${version}`,
   'color: teal; font-weight: bold; background: lightgray',
   'color: darkblue; font-weight: bold; background: white',
 );
+/* eslint-disable @typescript-eslint/no-explicit-any */
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
+  /* eslint-enable */
   type: `${cardId}${DEV ? '-dev' : ''}`,
   name: `${cardName}${DEV ? ' DEV' : ''}`,
   preview: false,
@@ -47,19 +53,20 @@ export class MusicAssistantCard extends LitElement {
   @state() private config!: Config;
   @state() private error?: TemplateResult;
 
-  private newId: string = '';
-  private defaultAllowCollapse: boolean = true;
+  private newId = '';
   private services!: HassService;
-  private _listening: boolean = false;
+  private _listening = false;
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   private _unsubscribe: any;
-  private queueID: string = '';
+  private queueID = '';
 
   constructor() {
     super();
     this.queue = [];
   }
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   private eventListener = (event: any) => {
-    let event_data = event.data;
+    const event_data = event.data;
     if (event_data.type == 'queue_updated') {
       const updated_queue_id = event_data.data.queue_id;
       if (updated_queue_id == this.queueID) {
@@ -104,6 +111,7 @@ export class MusicAssistantCard extends LitElement {
     return queue.findIndex(item => item.queue_item_id == queue_item_id)
   }
   private moveQueueItem(old_index, new_index) {
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
     this.queue.splice(new_index, 0, this.queue.splice(old_index, 1)[0]);
   }
   private getQueue() {
@@ -111,13 +119,14 @@ export class MusicAssistantCard extends LitElement {
       return;
     }
     try {
+      /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
       this.services.getQueue(this.config.limit_before, this.config.limit_after).then(
         (queue) => {
           this.queue = this.updateActiveTrack(queue);
         }
       );
       this.queueID = this.hass.states[this.config.entity].attributes.active_queue;
-    } catch (e) {
+    } catch {
       this.queue = []
     }
   }
@@ -201,7 +210,7 @@ export class MusicAssistantCard extends LitElement {
       return true;
     }
     if (_changedProperties.has('hass')) {
-      const oldHass = _changedProperties.get('hass') as HomeAssistant;
+      const oldHass = _changedProperties.get('hass')! as HomeAssistant;
       if (!oldHass) {
         return true;
       }
@@ -260,8 +269,11 @@ export class MusicAssistantCard extends LitElement {
 
   private createError(errorString: string): Error {
     const error = new Error(errorString);
+    /* eslint-disable-next-line
+      @typescript-eslint/no-explicit-any,
+    */
     const errorCard = document.createElement('hui-error-card') as any;
-    (errorCard as any).setConfig({
+    errorCard.setConfig({
       type: 'error',
       error,
       origConfig: this.config,

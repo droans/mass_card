@@ -1,4 +1,4 @@
-export type Config = {
+export interface Config {
   entity: string;
   title: string;
   expanded: boolean;
@@ -9,7 +9,7 @@ export type Config = {
   allow_collapsing: boolean;
 }
 
-export type QueueItem = {
+export interface QueueItem {
   media_title: string;
   media_album_name: string;
   media_artist: string;
@@ -21,3 +21,11 @@ export type QueueItem = {
   show_artist_name: boolean
   show_move_up_next: boolean;
 }
+
+export type QueueService = (
+  queue_item_id: string
+) => void;
+export type ItemSelectedService = (
+  queue_item_id: string, 
+  media_content_id: string
+) => void;
