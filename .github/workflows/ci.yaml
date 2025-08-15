@@ -21,7 +21,7 @@ jobs:
           echo "Get Node version"
           node --version
           echo "Install Yarn"
-          npm install -g yarn@4.9.1
+          npm install -g corepack@0.34.0
           echo "Check that we're running latest yarn..."
           which yarn
       - name: Cache Node.js modules
@@ -49,11 +49,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
       - name: Prepare dependencies
         run: |
+          echo "Get Node version"
+          node --version
           echo "Install Yarn"
-          npm install -g yarn@4.9.1
+          npm install -g corepack@0.34.0
           echo "Check that we're running latest yarn..."
           which yarn
       - name: Cache Node.js modules
