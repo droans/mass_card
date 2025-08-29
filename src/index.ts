@@ -64,7 +64,15 @@ export class MusicAssistantCard extends LitElement {
     super();
     this.queue = [];
   }
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  public set hass(hass: HomeAssistant) {
+    if (!hass) {
+      return;
+    }
+    this._hass = hass;
+  }
+  public get hass() {
+    return this._hass;
+  }
   private eventListener = (event: any) => {
     const event_data = event.data;
     if (event_data.type == 'queue_updated') {
