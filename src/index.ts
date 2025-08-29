@@ -47,13 +47,13 @@ console.info(
 
 @customElement(`${cardId}${DEV ? '-dev' : ''}`)
 export class MusicAssistantCard extends LitElement {
-  @property({attribute: false}) public hass!: HomeAssistant;
-
+  @state() private lastUpdated: string = '';
   @state() private queue: QueueItem[] = [];
   @state() private config!: Config;
   @state() private error?: TemplateResult;
 
   private newId = '';
+  private _hass!: HomeAssistant;
   private services!: HassService;
   private _listening = false;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -67,6 +67,10 @@ export class MusicAssistantCard extends LitElement {
   public set hass(hass: HomeAssistant) {
     if (!hass) {
       return;
+    }
+    const lastUpdated = hass.states[this.config.entity].last_updated;
+    if (lastUpdated !== this.lastUpdated) {
+      this.lastUpdated = lastUpdated;
     }
     this._hass = hass;
   }
