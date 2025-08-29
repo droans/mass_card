@@ -77,6 +77,7 @@ export class MusicAssistantCard extends LitElement {
   public get hass() {
     return this._hass;
   }
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   private eventListener = (event: any) => {
     const event_data = event.data;
     if (event_data.type == 'queue_updated') {
