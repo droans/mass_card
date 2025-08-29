@@ -1,6 +1,6 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, PropertyValues } from 'lit';
 import { keyed } from 'lit/directives/keyed.js';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import {
   type HomeAssistant,
 } from 'custom-card-helpers';
@@ -47,7 +47,7 @@ console.info(
 
 @customElement(`${cardId}${DEV ? '-dev' : ''}`)
 export class MusicAssistantCard extends LitElement {
-  @state() private lastUpdated: string = '';
+  @state() private lastUpdated = '';
   @state() private queue: QueueItem[] = [];
   @state() private config!: Config;
   @state() private error?: TemplateResult;
