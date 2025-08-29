@@ -8,7 +8,7 @@ import {
 import { QueueItem, Config } from './types'
 import HassService from './services'
 import styles from './styles';
-import { DEFAULT_CONFIG } from './const'
+import { ConfigErrors, DEFAULT_CONFIG } from './const'
 import './media-row'
 import { version } from '../package.json';
 
@@ -92,13 +92,28 @@ export class MusicAssistantCard extends LitElement {
      };
   }
 
-  public setConfig(config?: Config) {
+  private testConfig(config: Config) {
     if (!config) {
-      throw this.createError('Invalid configuration')
+      return ConfigErrors.CONFIG_MISSING;
     }
     if (!config.entity) {
-      throw this.createError('You need to define entitiy.');
+      return ConfigErrors.NO_ENTITY;
     };
+    if (typeof(config.entity) !== "string") {
+      return ConfigErrors.ENTITY_TYPE;
+    }
+    if (this.hass) {
+      if (!this.hass.states[config.entity]) {
+        return ConfigErrors.MISSING_ENTITY;
+      }
+    }
+    return ConfigErrors.OK;
+  }
+  public setConfig(config: Config) {
+    const status = this.testConfig(config);
+    if (status !== ConfigErrors.OK) {
+      throw this.createError(status);
+    }
     this.config = {
       ...DEFAULT_CONFIG,
       ...config
@@ -116,6 +131,9 @@ export class MusicAssistantCard extends LitElement {
   }
   private getQueue() {
     if (!this.services) {
+      return;
+    }
+    if (this.testConfig(this.config) !== ConfigErrors.OK) {
       return;
     }
     try {

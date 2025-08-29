@@ -7,3 +7,11 @@ export const DEFAULT_CONFIG = {
   show_artist_names: true,
   allow_collapsing: true,
 }
+
+export enum ConfigErrors {
+  CONFIG_MISSING = 'Invalid configuration.',
+  NO_ENTITY = 'You need to define entity.',
+  ENTITY_TYPE = 'Entity must be a string!',
+  MISSING_ENTITY = 'Entity does not exist!',
+  OK = 'ok'
+}
