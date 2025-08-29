@@ -1,6 +1,6 @@
 import { LitElement, html, type TemplateResult, type CSSResultGroup, PropertyValues } from 'lit';
 import { keyed } from 'lit/directives/keyed.js';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import {
   type HomeAssistant,
 } from 'custom-card-helpers';
@@ -8,7 +8,7 @@ import {
 import { QueueItem, Config } from './types'
 import HassService from './services'
 import styles from './styles';
-import { DEFAULT_CONFIG } from './const'
+import { ConfigErrors, DEFAULT_CONFIG } from './const'
 import './media-row'
 import { version } from '../package.json';
 
@@ -47,13 +47,13 @@ console.info(
 
 @customElement(`${cardId}${DEV ? '-dev' : ''}`)
 export class MusicAssistantCard extends LitElement {
-  @property({attribute: false}) public hass!: HomeAssistant;
-
+  @state() private lastUpdated = '';
   @state() private queue: QueueItem[] = [];
   @state() private config!: Config;
   @state() private error?: TemplateResult;
 
   private newId = '';
+  private _hass!: HomeAssistant;
   private services!: HassService;
   private _listening = false;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -64,7 +64,20 @@ export class MusicAssistantCard extends LitElement {
     super();
     this.queue = [];
   }
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  public set hass(hass: HomeAssistant) {
+    if (!hass) {
+      return;
+    }
+    const lastUpdated = hass.states[this.config.entity].last_updated;
+    if (lastUpdated !== this.lastUpdated) {
+      this.lastUpdated = lastUpdated;
+    }
+    this._hass = hass;
+  }
+  public get hass() {
+    return this._hass;
+  }
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   private eventListener = (event: any) => {
     const event_data = event.data;
     if (event_data.type == 'queue_updated') {
@@ -92,13 +105,28 @@ export class MusicAssistantCard extends LitElement {
      };
   }
 
-  public setConfig(config?: Config) {
+  private testConfig(config: Config) {
     if (!config) {
-      throw this.createError('Invalid configuration')
+      return ConfigErrors.CONFIG_MISSING;
     }
     if (!config.entity) {
-      throw this.createError('You need to define entitiy.');
+      return ConfigErrors.NO_ENTITY;
     };
+    if (typeof(config.entity) !== "string") {
+      return ConfigErrors.ENTITY_TYPE;
+    }
+    if (this.hass) {
+      if (!this.hass.states[config.entity]) {
+        return ConfigErrors.MISSING_ENTITY;
+      }
+    }
+    return ConfigErrors.OK;
+  }
+  public setConfig(config: Config) {
+    const status = this.testConfig(config);
+    if (status !== ConfigErrors.OK) {
+      throw this.createError(status);
+    }
     this.config = {
       ...DEFAULT_CONFIG,
       ...config
@@ -116,6 +144,9 @@ export class MusicAssistantCard extends LitElement {
   }
   private getQueue() {
     if (!this.services) {
+      return;
+    }
+    if (this.testConfig(this.config) !== ConfigErrors.OK) {
       return;
     }
     try {
