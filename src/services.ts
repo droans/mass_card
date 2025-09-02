@@ -10,7 +10,7 @@ export default class HassService {
     this.config = config;
   }
 
-  async getQueue(limit_before: number, limit_after: number): Promise<QueueItem[]> {
+  async getQueue(limit_before: number, limit_after: number): Promise<QueueItem[]|null> {
     try {
       /* eslint-disable 
         @typescript-eslint/no-explicit-any
@@ -32,7 +32,7 @@ export default class HassService {
     } catch (e) {
       /* eslint-disable-next-line no-console */
       console.error('Error getting queue', e);
-      return [];
+      return null;
     }
   }
   async playQueueItem(queue_item_id: string) {
