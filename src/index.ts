@@ -59,6 +59,9 @@ export class MusicAssistantCard extends LitElement {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   private _unsubscribe: any;
   private queueID = '';
+  private failCt = 0;
+  private maxFailCt = 5;
+  private hasFailed = false;
 
   constructor() {
     super();
@@ -146,13 +149,22 @@ export class MusicAssistantCard extends LitElement {
     if (!this.services) {
       return;
     }
-    if (this.testConfig(this.config) !== ConfigErrors.OK) {
+    if (this.testConfig(this.config) !== ConfigErrors.OK || this.hasFailed) {
       return;
+    }
+    if (this.failCt >= this.maxFailCt) {
+      this.hasFailed = true;
+      throw this.createError(`Failed to get queue ${this.failCt.toString()} times! Please check card config and that the services are working properly.`)
+      return
     }
     try {
       /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
       this.services.getQueue(this.config.limit_before, this.config.limit_after).then(
         (queue) => {
+          if (queue == null) {
+            this.failCt ++;
+            return;
+          }
           this.queue = this.updateActiveTrack(queue);
         }
       );
