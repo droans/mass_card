@@ -154,7 +154,7 @@ export class MusicAssistantCard extends LitElement {
     }
     if (this.failCt >= this.maxFailCt) {
       this.hasFailed = true;
-      throw this.createError(`Failed to get queue ${this.failCt} times! Please check card config and that the services are working properly.`)
+      throw this.createError(`Failed to get queue ${this.failCt.toString()} times! Please check card config and that the services are working properly.`)
       return
     }
     try {
