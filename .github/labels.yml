@@ -86,4 +86,4 @@
 
 - name: no-changelog
   description: Don't add to release changelog
-  color: 0e8a16
+  color: fbca04
