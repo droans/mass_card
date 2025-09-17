@@ -29,7 +29,14 @@
 
 Display the queue for any given media player.
 
-### Important: This card requires the custom integration [Music Assistant Queue Actions](https://github.com/droans/mass_queue) to function. This integration must be installed before continuing!
+## ⚠️ NOTICE 
+With the release of [Music Assistant Player Card](https://github.com/droans/mass-player-card), this card is now in maintenance mode. While major bugs may be fixed as they arise, you should not expect any new features or improvements to be made. 
+
+Music Assistant Player Card includes all the features of this card along with a full-fledged music player, Music Assistant library browser, and adds features such as joining players, transferring queues, swiping between tracks, etc. 
+
+## ❗ Important: 
+
+This card requires the custom integration [Music Assistant Queue Actions](https://github.com/droans/mass_queue) to function. This integration must be installed before continuing!
 
 ## Install with HACS:
 
